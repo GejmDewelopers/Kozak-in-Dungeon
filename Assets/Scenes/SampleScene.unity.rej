@@ -1,0 +1,15 @@
+diff a/Assets/Scenes/SampleScene.unity b/Assets/Scenes/SampleScene.unity	(rejected hunks)
+@@ -50,12 +50,11 @@
+     m_BounceScale: 1
+     m_IndirectOutputScale: 1
+     m_AlbedoBoost: 1
+-    m_TemporalCoherenceThreshold: 1
+     m_EnvironmentLightingMode: 0
+     m_EnableBakedLightmaps: 0
+     m_EnableRealtimeLightmaps: 0
+   m_LightmapEditorSettings:
+-    serializedVersion: 10
++    serializedVersion: 12
+     m_Resolution: 2
+     m_BakeResolution: 40
+     m_AtlasSize: 1024
