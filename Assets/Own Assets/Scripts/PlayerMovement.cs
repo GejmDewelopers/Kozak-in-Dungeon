@@ -21,14 +21,29 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        TakeInputs();
+        RunAnimHandler();
+    }
+
+    private void TakeInputs()
+    {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        if (movement.x < 0) spr.flipX = true;
-        if(movement.x > 0) spr.flipX = false;
+    }
+
+    private void RunAnimHandler()
+    {
+        if (movement.magnitude >= Mathf.Epsilon) animator.SetBool("isRunning", true);
+        else animator.SetBool("isRunning", false);
     }
 
     private void FixedUpdate()
+    {
+        MoveAndRotatePlayer();
+    }
+
+    private void MoveAndRotatePlayer()
     {
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
         Vector2 lookDir = mousePos - rb.position;
