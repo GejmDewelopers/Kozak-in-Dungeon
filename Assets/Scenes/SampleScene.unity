@@ -4699,6 +4699,36 @@ CircleCollider2D:
   m_Offset: {x: 0.04, y: 0.06}
   serializedVersion: 2
   m_Radius: 0.08
+--- !u!114 &1227407136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227407127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b09c679eff6c4b4296ce5944636edac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 2113791116}
+  bulletPrefab: {fileID: 2113791115}
+  bulletForce: 20
+--- !u!114 &1227407137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227407127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8b2ae2453a5f24fbbf7d13c76286fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  rb: {fileID: 1227407133}
+  cam: {fileID: 519420031}
 --- !u!1 &1267705194
 GameObject:
   m_ObjectHideFlags: 0
@@ -8347,6 +8377,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2113791115 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6151052048516219834, guid: ca8fb28dfa942aa448301b08d8695c76,
+    type: 3}
+  m_PrefabInstance: {fileID: 2791012406937449717}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2113791116 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6843637708121005218, guid: ca8fb28dfa942aa448301b08d8695c76,
+    type: 3}
+  m_PrefabInstance: {fileID: 2791012406937449717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2145454953
 GameObject:
   m_ObjectHideFlags: 0

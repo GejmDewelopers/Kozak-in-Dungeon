@@ -1,0 +1,353 @@
+fileFormatVersion: 2
+guid: 264a67dec4879cd468b620cfdee5502c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1989059527698586479
+    second: TilesetOrganicBackground_0
+  - first:
+      213: -5833770040731962073
+    second: TilesetOrganicBackground_1
+  - first:
+      213: 4023936405596772457
+    second: Wall
+  - first:
+      213: 2842128076968567125
+    second: Corner
+  - first:
+      213: 4697187011526784290
+    second: TilesetOrganicBackground_4
+  - first:
+      213: 5916870054194869716
+    second: TilesetOrganicBackground_5
+  - first:
+      213: -3230620484572499718
+    second: TilesetOrganicBackground_6
+  - first:
+      213: -5734191131976209933
+    second: TilesetOrganicBackground_7
+  - first:
+      213: 8088254614350690120
+    second: TilesetOrganicBackground_8
+  - first:
+      213: 5724832131019155096
+    second: TilesetOrganicBackground_9
+  - first:
+      213: 1907072235044211482
+    second: Fill
+  - first:
+      213: -7267124924974981993
+    second: InnerCorner
+  - first:
+      213: 1049228185731994329
+    second: TilesetOrganicBackground_12
+  - first:
+      213: -5630557813266805674
+    second: TilesetOrganicBackground_13
+  - first:
+      213: -7086088302798577076
+    second: TilesetOrganicBackground_14
+  - first:
+      213: -3441502772775640705
+    second: TilesetOrganicBackground_15
+  - first:
+      213: -3944442046499043014
+    second: TilesetOrganicBackground_16
+  - first:
+      213: -1458748356353993181
+    second: TilesetOrganicBackground_17
+  - first:
+      213: 8410922460443360107
+    second: TilesetOrganicBackground_18
+  - first:
+      213: -1706921696621043115
+    second: TilesetOrganicBackground_19
+  - first:
+      213: -8645563909128832584
+    second: TilesetOrganicBackground_20
+  - first:
+      213: -511493843802687983
+    second: TilesetOrganicBackground_21
+  - first:
+      213: 7453694277627090700
+    second: TilesetOrganicBackground_22
+  - first:
+      213: 8702755636574365282
+    second: TilesetOrganicBackground_23
+  - first:
+      213: -3026222022105107039
+    second: TilesetOrganicBackground_24
+  - first:
+      213: 4549969436752827371
+    second: CorneredKupsko
+  - first:
+      213: -3086485998723611989
+    second: TilesetOrganicBackground_26
+  - first:
+      213: -7032614671322127019
+    second: TilesetOrganicBackground_27
+  - first:
+      213: -679744305064688008
+    second: TilesetOrganicBackground_28
+  - first:
+      213: 3171536094471847510
+    second: TilesetOrganicBackground_29
+  - first:
+      213: 8821944039742011932
+    second: TilesetOrganicBackground_30
+  - first:
+      213: -5395972428261606812
+    second: TilesetOrganicBackground_31
+  - first:
+      213: -666359465194716310
+    second: TilesetOrganicBackground_32
+  - first:
+      213: -5626710343731837231
+    second: TilesetOrganicBackground_33
+  - first:
+      213: 6145223915678151316
+    second: TilesetOrganicBackground_34
+  - first:
+      213: -5780332651535279929
+    second: TilesetOrganicBackground_35
+  - first:
+      213: 675117514548529097
+    second: TilesetOrganicBackground_36
+  - first:
+      213: -2372649505624694554
+    second: TilesetOrganicBackground_37
+  - first:
+      213: 3615708511946545894
+    second: TilesetOrganicBackground_38
+  - first:
+      213: 1283023875303469415
+    second: TilesetOrganicBackground_39
+  - first:
+      213: 5434688935217115585
+    second: TilesetOrganicBackground_40
+  - first:
+      213: -2445463172311389228
+    second: TilesetOrganicBackground_41
+  - first:
+      213: 8401728304509445805
+    second: TilesetOrganicBackground_42
+  - first:
+      213: -5839587445904701089
+    second: TilesetOrganicBackground_43
+  - first:
+      213: 725063132924064686
+    second: TilesetOrganicBackground_44
+  - first:
+      213: -4818441064720609456
+    second: TilesetOrganicBackground_45
+  - first:
+      213: -393134569641941315
+    second: TilesetOrganicBackground_46
+  - first:
+      213: 2395168433648439633
+    second: TilesetOrganicBackground_47
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 23
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Wall
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 293
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9689b5657d4e7d730800000000000000
+      internalID: 4023936405596772457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Corner
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 294
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55120e18d64417720800000000000000
+      internalID: 2842128076968567125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fill
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 226
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1b02daf718477a10800000000000000
+      internalID: 1907072235044211482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InnerCorner
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 226
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79c9a74326cf52b90800000000000000
+      internalID: -7267124924974981993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CorneredKupsko
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 97
+        width: 96
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be35980981db42f30800000000000000
+      internalID: 4549969436752827371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
