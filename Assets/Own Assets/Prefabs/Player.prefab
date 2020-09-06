@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2791012408127015919}
   - component: {fileID: 2791012408127015916}
   - component: {fileID: 2791012408127015917}
-  - component: {fileID: 2791012408127015918}
   - component: {fileID: 1227407133}
   - component: {fileID: 1227407132}
   - component: {fileID: 1227407134}
+  - component: {fileID: 2791012408127015918}
   - component: {fileID: 1227407135}
   m_Layer: 8
   m_Name: Player
@@ -107,21 +107,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2791012408127015918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2791012408127015906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a8b2ae2453a5f24fbbf7d13c76286fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  rb: {fileID: 1227407133}
-  cam: {fileID: 0}
 --- !u!50 &1227407133
 Rigidbody2D:
   serializedVersion: 4
@@ -175,6 +160,21 @@ CircleCollider2D:
   m_Offset: {x: 0.04, y: 0.03}
   serializedVersion: 2
   m_Radius: 0.09
+--- !u!114 &2791012408127015918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2791012408127015906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8b2ae2453a5f24fbbf7d13c76286fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  rb: {fileID: 1227407133}
+  cam: {fileID: 0}
 --- !u!114 &1227407135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +190,7 @@ MonoBehaviour:
   firePoint: {fileID: 6843637708121005218}
   bulletPrefab: {fileID: 8972903807120374612, guid: d502fa89f4c383246b6c54c0487b8957,
     type: 3}
+  animator: {fileID: 0}
   bulletForce: 20
 --- !u!1 &6151052048516219834
 GameObject:

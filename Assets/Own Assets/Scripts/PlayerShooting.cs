@@ -7,6 +7,7 @@ public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] Transform firePoint;
     [SerializeField] GameObject bulletPrefab;
+    [SerializeField] Animator animator;
 
     public float bulletForce = 20f;
 
@@ -15,6 +16,7 @@ public class PlayerShooting : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
+            animator.SetTrigger("Shoot");
         }
     }
 
