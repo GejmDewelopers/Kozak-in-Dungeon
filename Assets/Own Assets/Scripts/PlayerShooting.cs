@@ -10,10 +10,16 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] Animator animator;
 
     public float bulletForce = 20f;
+    PlayerHealth playerHealthScript;
+
+    private void Start()
+    {
+        playerHealthScript = GetComponent<PlayerHealth>();
+    }
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && playerHealthScript.state == PlayerState.Alive)
         {
             Shoot();
             animator.SetTrigger("Shoot");

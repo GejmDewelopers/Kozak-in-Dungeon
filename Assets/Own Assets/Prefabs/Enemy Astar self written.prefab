@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 689506216687082504}
   - component: {fileID: 689506216687082511}
   - component: {fileID: 689506216687082508}
-  m_Layer: 0
+  - component: {fileID: 131622285}
+  m_Layer: 11
   m_Name: Enemy Astar self written
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 400
+  speed: 1500
   nextWaypointDistance: 3
 --- !u!50 &689506216687082508
 Rigidbody2D:
@@ -116,7 +117,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 15
   m_LinearDrag: 1.5
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -125,6 +126,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &131622285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689506216687082547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de211127531305742b30e90fb5350a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPoints: 191.81
+  spriteRenderer: {fileID: 5688795652807037313}
+  normalColor: {r: 0, g: 1, b: 0.3246, a: 1}
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1001 &689506216470469354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -132,10 +149,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 689506216687082510}
     m_Modifications:
+    - target: {fileID: 3784272739429057341, guid: dd007ff465e7e024bb1246339076e8b0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5144016502973582181, guid: dd007ff465e7e024bb1246339076e8b0,
         type: 3}
       propertyPath: m_Name
       value: Evil Clone
+      objectReference: {fileID: 0}
+    - target: {fileID: 5144016502973582181, guid: dd007ff465e7e024bb1246339076e8b0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5144016502973582184, guid: dd007ff465e7e024bb1246339076e8b0,
         type: 3}
@@ -207,6 +234,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7050558107692937016, guid: dd007ff465e7e024bb1246339076e8b0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5144016502973582185, guid: dd007ff465e7e024bb1246339076e8b0, type: 3}
     - {fileID: 7050558108364062616, guid: dd007ff465e7e024bb1246339076e8b0, type: 3}
@@ -214,10 +246,17 @@ PrefabInstance:
     - {fileID: 7050558108364062618, guid: dd007ff465e7e024bb1246339076e8b0, type: 3}
     - {fileID: 7050558108364062619, guid: dd007ff465e7e024bb1246339076e8b0, type: 3}
     - {fileID: 7050558108364062617, guid: dd007ff465e7e024bb1246339076e8b0, type: 3}
+    - {fileID: 7050558106701672308, guid: dd007ff465e7e024bb1246339076e8b0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dd007ff465e7e024bb1246339076e8b0, type: 3}
 --- !u!4 &5688795652807037314 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5144016502973582184, guid: dd007ff465e7e024bb1246339076e8b0,
+    type: 3}
+  m_PrefabInstance: {fileID: 689506216470469354}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &5688795652807037313 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5144016502973582187, guid: dd007ff465e7e024bb1246339076e8b0,
     type: 3}
   m_PrefabInstance: {fileID: 689506216470469354}
   m_PrefabAsset: {fileID: 0}
