@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerHealthScript.state == PlayerState.Alive)
+        if (playerHealthScript.state == PlayerState.Alive && !PauseMenu.GameIsPaused)
         {
             TakeInputs();
             RunAnimHandler();

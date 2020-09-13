@@ -19,10 +19,13 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && playerHealthScript.state == PlayerState.Alive)
+        if (!PauseMenu.GameIsPaused)
         {
-            Shoot();
-            animator.SetTrigger("Shoot");
+            if (Input.GetButtonDown("Fire1") && playerHealthScript.state == PlayerState.Alive)
+            {
+                Shoot();
+                animator.SetTrigger("Shoot");
+            }
         }
     }
 

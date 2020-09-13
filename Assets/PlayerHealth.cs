@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 9 || collision.gameObject.layer == 13 || !isVulnerable) return; // border // obstacles
+        if (collision.gameObject.layer == 9 || collision.gameObject.layer == 13 || collision.gameObject.layer == 4 || !isVulnerable) return; // border // obstacles
         StartCoroutine(IFrames());
         healthPoints--;
         healthDisplay.SetHealth(healthPoints);
@@ -58,6 +58,7 @@ public class PlayerHealth : MonoBehaviour
 
     void LoadFirstLevel() //TODO: Change later for "Load death sscreen or smth"
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
 
