@@ -6,7 +6,6 @@ public class EnemyTurret1 : EnemyTurret
 {
     void Start()
     {
-        healthPoints = 30;
         StartCoroutine(FireBullets());
     }
     public override IEnumerator FireBullets()
@@ -15,7 +14,7 @@ public class EnemyTurret1 : EnemyTurret
         while (true)
         {
             Vector2 shootingDirection = DetermineBulletDirection(direction);
-            InstantiateAndAddForce(shootingDirection);
+            InstantiateBulletAndAddForce(shootingDirection);
             if (direction < 7) direction++;
             else direction = 0;
             yield return new WaitForSeconds(0.2f);
@@ -60,7 +59,7 @@ public class EnemyTurret1 : EnemyTurret
         return dirVector;
     }
 
-    private void InstantiateAndAddForce(Vector2 forceDirection)
+    private void InstantiateBulletAndAddForce(Vector2 forceDirection)
     {
         GameObject spawnedBullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Rigidbody2D bulletRb = spawnedBullet.GetComponent<Rigidbody2D>();

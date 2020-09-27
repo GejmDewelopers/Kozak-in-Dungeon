@@ -21,6 +21,11 @@ public class OptionsMenu : MonoBehaviour
 
     private void Update()
     {
+        BackWithEscape();
+    }
+
+    private void BackWithEscape()
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             mainMenu.SetActive(true);

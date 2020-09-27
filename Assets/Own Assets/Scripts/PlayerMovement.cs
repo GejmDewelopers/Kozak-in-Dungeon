@@ -11,18 +11,16 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 movement;
     Vector2 mousePos;
-    SpriteRenderer spr; //TODO: Remove everything about it and replace with animations
     PlayerHealth playerHealthScript;
     void Start()
     {
         playerHealthScript = GetComponent<PlayerHealth>();
         animator = GetComponent<Animator>();
-        spr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         if (playerHealthScript.state == PlayerState.Alive && !PauseMenu.GameIsPaused)
         {
             TakeInputs();

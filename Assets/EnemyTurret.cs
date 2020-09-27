@@ -10,7 +10,6 @@ public abstract class EnemyTurret : MonoBehaviour
     public Animator animator;
 
     public float bulletSpeed = 5f;
-    public float healthPoints = 100f;
     public abstract IEnumerator FireBullets();
     public abstract void OnDeath();
 }

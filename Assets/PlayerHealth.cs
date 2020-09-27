@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 9 || collision.gameObject.layer == 13 || collision.gameObject.layer == 4 || !isVulnerable) return; // border // obstacles
+        if (collision.gameObject.layer == 9 || collision.gameObject.layer == 13 || collision.gameObject.layer == 4 || !isVulnerable) return; // border // obstacles // water
         StartCoroutine(IFrames());
         healthPoints--;
         healthDisplay.SetHealth(healthPoints);
