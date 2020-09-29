@@ -20,13 +20,13 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.4275836, g: 0.4528302, b: 0.16019936, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 3
+  m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 92c453b634f7c0442b6ecaa1c0b7e859,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -420,12 +421,16 @@ MonoBehaviour:
   roomPrefabs:
   - {fileID: 5499751530550494639, guid: 3c99bf5ef871c3340818621f26f03cc0, type: 3}
   - {fileID: 2703461478406571171, guid: d3f62a48aa86eac43809afee051548d2, type: 3}
-  playerTransform: {fileID: 1227407131}
   doorPrefab: {fileID: 3382487504474739114, guid: fe5db0293fca14a4eaf7b04a73f4651a,
     type: 3}
+  playerTransform: {fileID: 1227407131}
   mapRoot: {fileID: 766923246}
   DoorsRoot: {fileID: 767276089}
   RoomsRoot: {fileID: 1124377988}
+  xMapAspectRatio: 16
+  yMapAspectRatio: 8
+  xRoomSpawnAspectRatio: 4
+  yRoomSpawnAspectRatio: 8
 --- !u!4 &37731505
 Transform:
   m_ObjectHideFlags: 0
@@ -1788,7 +1793,7 @@ MonoBehaviour:
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
+  m_VolumeTrigger: {fileID: 1227407131}
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
@@ -1807,8 +1812,8 @@ Camera:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1849,7 +1854,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.7999997, y: 0.20000024, z: -10}
+  m_LocalPosition: {x: 2.3799999, y: -12.91, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2946,7 +2951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &766923246
 Transform:
   m_ObjectHideFlags: 0
@@ -5108,7 +5113,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 11
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 1227407131}
@@ -5135,7 +5140,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1348924674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.7999997, y: 0.20000024, z: -10}
+  m_LocalPosition: {x: 2.3799999, y: -12.91, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1340401793}
@@ -6738,12 +6743,12 @@ PrefabInstance:
     - target: {fileID: 2791012408127015919, guid: ca8fb28dfa942aa448301b08d8695c76,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.8
+      value: 2.38
       objectReference: {fileID: 0}
     - target: {fileID: 2791012408127015919, guid: ca8fb28dfa942aa448301b08d8695c76,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: -12.91
       objectReference: {fileID: 0}
     - target: {fileID: 2791012408127015919, guid: ca8fb28dfa942aa448301b08d8695c76,
         type: 3}

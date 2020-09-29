@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class LevelGeneration : MonoBehaviour
 {
@@ -11,12 +12,27 @@ public class LevelGeneration : MonoBehaviour
     public GameObject roomWhiteObj;
 
     public GameObject[] roomPrefabs;
-    public Transform playerTransform;
     public GameObject doorPrefab;
 
+    [Space(10)]
+
+    public Transform playerTransform;
     public Transform mapRoot;
     public Transform DoorsRoot;
     public Transform RoomsRoot;
+
+    [Space(10)]
+    [SerializeField] float xMapAspectRatio = 16;
+    [SerializeField] float yMapAspectRatio = 8;
+
+    [Tooltip("How spread are rooms in x")]
+    [SerializeField]  float xRoomSpawnAspectRatio = 4;
+
+    [Tooltip("How spread are rooms in y")]
+    [SerializeField] float yRoomSpawnAspectRatio = 8;
+
+    //it's done so both are 64 (16*4 = 8*8)
+
     void Start()
     {
         if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
@@ -102,8 +118,8 @@ public class LevelGeneration : MonoBehaviour
     }
     Vector2 SelectiveNewPosition()
     { // method differs from the above in the two commented ways
-        int index = 0, inc = 0;
-        int x = 0, y = 0;
+        int index, inc;
+        int x, y;
         Vector2 checkingPos = Vector2.zero;
         do
         {
@@ -179,15 +195,18 @@ public class LevelGeneration : MonoBehaviour
                 continue; //skip where there is no room
             }
             Vector2 drawPos = room.gridPos;
-            drawPos.x *= 16;//aspect ratio of map sprite
-            drawPos.y *= 8;
+            drawPos.x *= xMapAspectRatio;//aspect ratio of map sprite
+            drawPos.y *= yMapAspectRatio;
             //create map obj and assign its variables
 
-            int index = Mathf.RoundToInt(Random.Range(0, roomPrefabs.Length ));
+            int index = Mathf.RoundToInt(Random.Range(0, roomPrefabs.Length));
             Vector2 roomDrawPos = drawPos;
-            roomDrawPos.x *= 4;
-            roomDrawPos.y *= 8;
-            Instantiate(roomPrefabs[index], roomDrawPos, Quaternion.identity);
+            roomDrawPos.x *= xRoomSpawnAspectRatio;
+            roomDrawPos.y *= yRoomSpawnAspectRatio;
+
+            GameObject recentlyDoneRoom = Instantiate(roomPrefabs[index], roomDrawPos, Quaternion.identity);
+            recentlyDoneRoom.AddComponent<RoomInstance>();
+            recentlyDoneRoom.GetComponent<RoomInstance>().Setup(room.gridPos, roomDrawPos, room.type, room.doorTop, room.doorRight, room.doorBot, room.doorLeft);
 
             MapSpriteSelector mapper = Object.Instantiate(roomWhiteObj, drawPos, Quaternion.identity).GetComponent<MapSpriteSelector>();
             mapper.type = room.type;
@@ -210,14 +229,20 @@ public class LevelGeneration : MonoBehaviour
                 }
 
                 Vector2 roomPos = rooms[x, y].gridPos;
-                roomPos *= 64;
+                roomPos *= xMapAspectRatio * xRoomSpawnAspectRatio;
                 Vector2 topDoorPos = roomPos + new Vector2(0.5f, -7.5f);
                 Vector2 botDoorPos = roomPos + new Vector2(0.5f, -17.5f);
                 Vector2 leftDoorPos = roomPos + new Vector2(-8.5f, -12.5f);
                 Vector2 rightDoorPos = roomPos + new Vector2(9.5f, -12.5f);
 
+                /*
+                 * 0 Up
+                 * 1 Right
+                 * 2 Down
+                 * 3 Left
+                 */
 
-                Vector2 gridPosition = new Vector2(x, y);
+                //Vector2 gridPosition = new Vector2(x, y);
                 if (y - 1 < 0)
                 { //check above
                     rooms[x, y].doorBot = false;

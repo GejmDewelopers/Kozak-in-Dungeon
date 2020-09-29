@@ -10,9 +10,12 @@ public class Room
 
     public bool doorTop, doorBot, doorLeft, doorRight;
 
+    [SerializeField] GameObject doorU, doorR, doorB, doorL;
+
     public Room(Vector2 _gridPos, int _type)
     {
         gridPos = _gridPos;
         type = _type;
     }
+
 }

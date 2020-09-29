@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Door : MonoBehaviour
 {
@@ -23,11 +24,14 @@ public class Door : MonoBehaviour
     bool wasRecentlyUsed = false;
 
     int teleportValue;
-    
 
-    public GameObject player;
+    //MAYBE DELETE??
+    CinemachineVirtualCamera CMCamera;
+
+    GameObject player;
     private void Start()
     {
+        CMCamera = FindObjectOfType<CinemachineVirtualCamera>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
     }
 
@@ -35,11 +39,8 @@ public class Door : MonoBehaviour
     {
         if (isLocked || wasRecentlyUsed || collision.tag != "Player") return;
 
-        //StartCoroutine(BlockDoorForTime());
-
 
         ChoosePositionAndTeleportPlayer();
-
     }
 
     private void ChoosePositionAndTeleportPlayer()
@@ -89,9 +90,8 @@ public class Door : MonoBehaviour
 
     IEnumerator LockDoorForTime(Door door)
     {
-        if (door == null) print("chuj");
         door.wasRecentlyUsed = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         door.wasRecentlyUsed = false;
     }
 }
