@@ -13,6 +13,7 @@ public class Door : MonoBehaviour
      */
 
     public static List<Door> allDoors = new List<Door>();
+    public static List<GameObject> doorPrefabs = new List<GameObject>();
 
     [HideInInspector] public int direction;
     [HideInInspector] public Vector2 roomPos;
@@ -25,21 +26,18 @@ public class Door : MonoBehaviour
 
     int teleportValue;
 
-    //MAYBE DELETE??
-    CinemachineVirtualCamera CMCamera;
+    RoomInstance parentRoom;
 
     GameObject player;
     private void Start()
     {
-        CMCamera = FindObjectOfType<CinemachineVirtualCamera>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
+        parentRoom = GetComponentInParent<RoomInstance>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isLocked || wasRecentlyUsed || collision.tag != "Player") return;
-
-
         ChoosePositionAndTeleportPlayer();
     }
 
@@ -51,25 +49,25 @@ public class Door : MonoBehaviour
             case 0:
                 teleportValue = 54;
                 afterTeleportationPos = doorPos + new Vector2(0, teleportValue);
-                doorToLock = FindDoorToLock(afterTeleportationPos);
+                doorToLock = FindDoorToLockAndChangeCamera(afterTeleportationPos);
                 StartCoroutine(LockDoorForTime(doorToLock));
                 break;
             case 1:
                 teleportValue = 46;
                 afterTeleportationPos = doorPos + new Vector2(teleportValue, 0);
-                doorToLock = FindDoorToLock(afterTeleportationPos);
+                doorToLock = FindDoorToLockAndChangeCamera(afterTeleportationPos);
                 StartCoroutine(LockDoorForTime(doorToLock));
                 break;
             case 2:
                 teleportValue = -54;
                 afterTeleportationPos = doorPos + new Vector2(0, teleportValue);
-                doorToLock = FindDoorToLock(afterTeleportationPos);
+                doorToLock = FindDoorToLockAndChangeCamera(afterTeleportationPos);
                 StartCoroutine(LockDoorForTime(doorToLock));
                 break;
             case 3:
                 teleportValue = -46;
                 afterTeleportationPos = doorPos + new Vector2(teleportValue, 0);
-                doorToLock = FindDoorToLock(afterTeleportationPos);
+                doorToLock = FindDoorToLockAndChangeCamera(afterTeleportationPos);
                 StartCoroutine(LockDoorForTime(doorToLock));
                 break;
         }
@@ -77,12 +75,14 @@ public class Door : MonoBehaviour
         player.transform.position = afterTeleportationPos;
     }
 
-    Door FindDoorToLock(Vector2 doorLocation)
+    Door FindDoorToLockAndChangeCamera(Vector2 doorLocation)
     {
         foreach(Door door in allDoors)
         {
             if (door.doorPos != doorLocation) continue;
 
+            this.parentRoom.CMCamera.Priority = 10;
+            door.parentRoom.CMCamera.Priority = 15;
             return door;
         }
         return null;

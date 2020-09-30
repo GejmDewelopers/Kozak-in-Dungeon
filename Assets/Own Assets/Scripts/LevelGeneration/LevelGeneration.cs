@@ -12,7 +12,7 @@ public class LevelGeneration : MonoBehaviour
     public GameObject roomWhiteObj;
 
     public GameObject[] roomPrefabs;
-    public GameObject doorPrefab;
+    public GameObject[] doorPrefabs;
 
     [Space(10)]
 
@@ -41,9 +41,12 @@ public class LevelGeneration : MonoBehaviour
         }
         gridSizeX = Mathf.RoundToInt(worldSize.x); //note: these are half-extents
         gridSizeY = Mathf.RoundToInt(worldSize.y);
+        SetDoorPrefabs();//adding door prefabs to static in Door class
         CreateRooms(); //lays out the actual map
         SetRoomDoors(); //assigns the doors where rooms would connect
         DrawMap(); //instantiates objects to make up a map
+        
+
         playerTransform.position = new Vector2(0, -10);
     }
     void CreateRooms()
@@ -197,7 +200,7 @@ public class LevelGeneration : MonoBehaviour
             Vector2 drawPos = room.gridPos;
             drawPos.x *= xMapAspectRatio;//aspect ratio of map sprite
             drawPos.y *= yMapAspectRatio;
-            //create map obj and assign its variables
+            
 
             int index = Mathf.RoundToInt(Random.Range(0, roomPrefabs.Length));
             Vector2 roomDrawPos = drawPos;
@@ -208,6 +211,7 @@ public class LevelGeneration : MonoBehaviour
             recentlyDoneRoom.AddComponent<RoomInstance>();
             recentlyDoneRoom.GetComponent<RoomInstance>().Setup(room.gridPos, roomDrawPos, room.type, room.doorTop, room.doorRight, room.doorBot, room.doorLeft);
 
+            //create map obj and assign its variables
             MapSpriteSelector mapper = Object.Instantiate(roomWhiteObj, drawPos, Quaternion.identity).GetComponent<MapSpriteSelector>();
             mapper.type = room.type;
             mapper.up = room.doorTop;
@@ -242,7 +246,6 @@ public class LevelGeneration : MonoBehaviour
                  * 3 Left
                  */
 
-                //Vector2 gridPosition = new Vector2(x, y);
                 if (y - 1 < 0)
                 { //check above
                     rooms[x, y].doorBot = false;
@@ -250,7 +253,6 @@ public class LevelGeneration : MonoBehaviour
                 else
                 {
                     rooms[x, y].doorBot = (rooms[x, y - 1] != null);
-                    if (rooms[x, y].doorBot) SetupDoor(roomPos, botDoorPos, 2);
                 }
                 if (y + 1 >= gridSizeY * 2)
                 { //check bellow
@@ -259,7 +261,6 @@ public class LevelGeneration : MonoBehaviour
                 else
                 {
                     rooms[x, y].doorTop = (rooms[x, y + 1] != null);
-                    if (rooms[x, y].doorTop) SetupDoor(roomPos, topDoorPos, 0);
                 }
                 if (x - 1 < 0)
                 { //check left
@@ -268,7 +269,6 @@ public class LevelGeneration : MonoBehaviour
                 else
                 {
                     rooms[x, y].doorLeft = (rooms[x - 1, y] != null);
-                    if (rooms[x, y].doorLeft) SetupDoor(roomPos, leftDoorPos, 3);
                 }
                 if (x + 1 >= gridSizeX * 2)
                 { //check right
@@ -277,21 +277,16 @@ public class LevelGeneration : MonoBehaviour
                 else
                 {
                     rooms[x, y].doorRight = (rooms[x + 1, y] != null);
-                    if (rooms[x, y].doorRight) SetupDoor(roomPos, rightDoorPos, 1);
                 }
             }
         }
     }
 
-    void SetupDoor(Vector2 roomPos, Vector2 doorPos, int direction)
+    void SetDoorPrefabs()
     {
-
-        Door door = Instantiate(doorPrefab, doorPos, Quaternion.identity).GetComponent<Door>();
-        Door.allDoors.Add(door);
-        door.gameObject.transform.parent = DoorsRoot;
-        door.direction = direction;
-        door.roomPos = roomPos;
-        door.doorPos = doorPos;
-
+        foreach(GameObject door in doorPrefabs)
+        {
+            Door.doorPrefabs.Add(door);
+        }
     }
 }

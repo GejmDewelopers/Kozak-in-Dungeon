@@ -11,11 +11,16 @@ public class RoomInstance : MonoBehaviour
 
     public int type;
 
+    bool isActive;
+    bool isCompleted;
+
     [HideInInspector]
     public bool doorTop, doorBot, doorLeft, doorRight;
 
-    [HideInInspector]
     public CinemachineVirtualCamera CMCamera;
+
+    public List<Door> thisRoomsDoors = new List<Door>();
+
 
     public void Setup(Vector2 _gridPos, Vector2 _roomPos, int _type, bool _doorTop, bool _doorRight, bool _doorBot, bool _doorLeft)
     {
@@ -26,11 +31,45 @@ public class RoomInstance : MonoBehaviour
         doorBot = _doorBot;
         doorLeft = _doorLeft;
         doorRight = _doorRight;
+        CMCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+        if (type == 1) CMCamera.Priority = 15;
         MakeDoors();
     }
 
-    private void MakeDoors()
+    void MakeDoors()
     {
-        print("LOL");
+        Vector2 topDoorPos = roomPos + new Vector2(0.5f, -7.5f);
+        Vector2 botDoorPos = roomPos + new Vector2(0.5f, -17.5f);
+        Vector2 leftDoorPos = roomPos + new Vector2(-8.5f, -12.5f);
+        Vector2 rightDoorPos = roomPos + new Vector2(9.5f, -12.5f);
+
+        if (doorTop)
+        {
+            SetupDoor(topDoorPos, 0);
+        }
+        if (doorRight)
+        {
+            SetupDoor(rightDoorPos, 1);
+        }
+        if (doorBot)
+        {
+            SetupDoor(botDoorPos, 2);
+        }
+        if (doorLeft)
+        {
+            SetupDoor(leftDoorPos, 3);
+        }
+    }
+
+    void SetupDoor(Vector2 doorPos, int direction)
+    {
+        Door door = Instantiate(Door.doorPrefabs[0], doorPos, Quaternion.identity).GetComponent<Door>();
+        thisRoomsDoors.Add(door);
+        Door.allDoors.Add(door);
+        door.gameObject.transform.parent = this.gameObject.transform;
+        door.direction = direction;
+        door.roomPos = roomPos;
+        door.doorPos = doorPos;
     }
 }
+
