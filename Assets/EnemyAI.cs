@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : Enemy
 {
     public Transform target;
 
@@ -19,6 +19,7 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
+        target = FindObjectOfType<PlayerHealth>().gameObject.transform;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         InvokeRepeating("UpdatePath", 0f, 0.5f);
@@ -42,7 +43,8 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (path == null) return;
+
+        if (path == null && enemyState == EnemyState.Waiting) return;
 
         if(currentWaypoint >= path.vectorPath.Count)
         {

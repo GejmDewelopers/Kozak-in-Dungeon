@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyTurret : MonoBehaviour
+public abstract class EnemyTurret : Enemy
 {
     public Transform firePoint;
     public GameObject bulletPrefab;

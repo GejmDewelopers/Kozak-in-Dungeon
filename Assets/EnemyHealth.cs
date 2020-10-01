@@ -8,11 +8,18 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Color normalColor = new Color(1f,1f,1f,1f);
     [SerializeField] Color damageColor = new Color(1f,0f,0f,1f);
+    EnemyState enemyState = EnemyState.Waiting; //TODO: NWM CZY Enemy state powinno byc tu!
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Bullet bullet = collision.gameObject.GetComponent<Bullet>();
         if(bullet) ReceiveDamage(bullet.damage);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+        if (bullet) ReceiveDamage(bullet.damage);
     }
 
     void ReceiveDamage(float damage)

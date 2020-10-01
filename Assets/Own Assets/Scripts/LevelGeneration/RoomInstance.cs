@@ -11,8 +11,8 @@ public class RoomInstance : MonoBehaviour
 
     public int type;
 
-    bool isActive;
-    bool isCompleted;
+    public bool isActive = false; // set from door script
+    public bool isCompleted = false;
 
     [HideInInspector]
     public bool doorTop, doorBot, doorLeft, doorRight;
@@ -21,6 +21,7 @@ public class RoomInstance : MonoBehaviour
 
     public List<Door> thisRoomsDoors = new List<Door>();
 
+    public Enemy[] mortalEnemiesInRoom;
 
     public void Setup(Vector2 _gridPos, Vector2 _roomPos, int _type, bool _doorTop, bool _doorRight, bool _doorBot, bool _doorLeft)
     {
@@ -31,8 +32,15 @@ public class RoomInstance : MonoBehaviour
         doorBot = _doorBot;
         doorLeft = _doorLeft;
         doorRight = _doorRight;
+
+        mortalEnemiesInRoom = GetComponentsInChildren<Enemy>();
+
         CMCamera = GetComponentInChildren<CinemachineVirtualCamera>();
-        if (type == 1) CMCamera.Priority = 15;
+        if (type == 1)
+        {
+            CMCamera.Priority = 15;
+            isActive = true;
+        }
         MakeDoors();
     }
 
@@ -70,6 +78,15 @@ public class RoomInstance : MonoBehaviour
         door.direction = direction;
         door.roomPos = roomPos;
         door.doorPos = doorPos;
+    }
+
+    public void SetRoomAndEnemiesInRoomActive()
+    {
+        isActive = true;
+        foreach (Enemy enemy in mortalEnemiesInRoom)
+        {
+            enemy.enemyState = EnemyState.Active;
+        }
     }
 }
 

@@ -83,6 +83,10 @@ public class Door : MonoBehaviour
 
             this.parentRoom.CMCamera.Priority = 10;
             door.parentRoom.CMCamera.Priority = 15;
+
+            
+            this.parentRoom.isActive = false;
+            door.parentRoom.SetRoomAndEnemiesInRoomActive();
             return door;
         }
         return null;

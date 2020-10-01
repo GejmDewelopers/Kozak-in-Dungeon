@@ -11,15 +11,16 @@ public class LevelGeneration : MonoBehaviour
     int gridSizeX, gridSizeY, numberOfRooms = 20;
     public GameObject roomWhiteObj;
 
-    public GameObject[] roomPrefabs;
+    public GameObject[] normalRoomPrefabs;
+    public GameObject[] baseRoomPrefabs;
     public GameObject[] doorPrefabs;
 
     [Space(10)]
 
     public Transform playerTransform;
     public Transform mapRoot;
-    public Transform DoorsRoot;
-    public Transform RoomsRoot;
+    public Transform doorsRoot;
+    public Transform roomsRoot;
 
     [Space(10)]
     [SerializeField] float xMapAspectRatio = 16;
@@ -200,16 +201,8 @@ public class LevelGeneration : MonoBehaviour
             Vector2 drawPos = room.gridPos;
             drawPos.x *= xMapAspectRatio;//aspect ratio of map sprite
             drawPos.y *= yMapAspectRatio;
-            
 
-            int index = Mathf.RoundToInt(Random.Range(0, roomPrefabs.Length));
-            Vector2 roomDrawPos = drawPos;
-            roomDrawPos.x *= xRoomSpawnAspectRatio;
-            roomDrawPos.y *= yRoomSpawnAspectRatio;
-
-            GameObject recentlyDoneRoom = Instantiate(roomPrefabs[index], roomDrawPos, Quaternion.identity);
-            recentlyDoneRoom.AddComponent<RoomInstance>();
-            recentlyDoneRoom.GetComponent<RoomInstance>().Setup(room.gridPos, roomDrawPos, room.type, room.doorTop, room.doorRight, room.doorBot, room.doorLeft);
+            LocateRoomsAndInstatiateRoomGameObjects(room, drawPos);
 
             //create map obj and assign its variables
             MapSpriteSelector mapper = Object.Instantiate(roomWhiteObj, drawPos, Quaternion.identity).GetComponent<MapSpriteSelector>();
@@ -221,6 +214,25 @@ public class LevelGeneration : MonoBehaviour
             mapper.gameObject.transform.parent = mapRoot;
         }
     }
+
+    private void LocateRoomsAndInstatiateRoomGameObjects(Room room, Vector2 drawPos)
+    {
+        int index = Mathf.RoundToInt(Random.Range(0, normalRoomPrefabs.Length));
+        Vector2 roomDrawPos = drawPos;
+        roomDrawPos.x *= xRoomSpawnAspectRatio;
+        roomDrawPos.y *= yRoomSpawnAspectRatio;
+
+        GameObject recentlyDoneRoom;
+        if (room.type == 0) recentlyDoneRoom = Instantiate(normalRoomPrefabs[index], roomDrawPos, Quaternion.identity);
+
+        //TODO: CHANGE IF MORE BASE ROOMS WILL HAPPEN or more types of rooms
+        else recentlyDoneRoom = Instantiate(baseRoomPrefabs[0], roomDrawPos, Quaternion.identity);
+        recentlyDoneRoom.gameObject.transform.parent = roomsRoot;
+
+        recentlyDoneRoom.AddComponent<RoomInstance>();
+        recentlyDoneRoom.GetComponent<RoomInstance>().Setup(room.gridPos, roomDrawPos, room.type, room.doorTop, room.doorRight, room.doorBot, room.doorLeft);
+    }
+
     void SetRoomDoors()
     {
         for (int x = 0; x < ((gridSizeX * 2)); x++)

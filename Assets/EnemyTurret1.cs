@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class EnemyTurret1 : EnemyTurret
 {
-    void Start()
+    //void Start()
+    //{
+    //    StartCoroutine(FireBullets());
+    //}
+    private void Update()
     {
-        StartCoroutine(FireBullets());
+        if (enemyState == EnemyState.Active && wasActivated == false) StartCoroutine(FireBullets());
     }
+
     public override IEnumerator FireBullets()
     {
+        wasActivated = true;
         int direction = 0;
         while (true)
         {

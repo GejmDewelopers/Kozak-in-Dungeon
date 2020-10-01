@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    float healthPoints;
-    float damage;
+    public EnemyState enemyState = EnemyState.Waiting;
+    public bool wasActivated = false;
 }
