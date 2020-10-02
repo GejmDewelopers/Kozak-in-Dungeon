@@ -23,7 +23,14 @@ public class RoomInstance : MonoBehaviour
 
     public Enemy[] mortalEnemiesInRoom;
 
-    public void Setup(Vector2 _gridPos, Vector2 _roomPos, int _type, bool _doorTop, bool _doorRight, bool _doorBot, bool _doorLeft)
+    //for minimap
+    public Sprite roomIconForMap;
+    public Color activeRoomColor;
+    public Color defaultRoomColor;
+
+    public GameObject objectWithMapSprite;
+
+    public void Setup(Vector2 _gridPos, Vector2 _roomPos, int _type, bool _doorTop, bool _doorRight, bool _doorBot, bool _doorLeft, Sprite _roomIconForMap)
     {
         gridPos = _gridPos;
         roomPos = _roomPos;
@@ -32,7 +39,9 @@ public class RoomInstance : MonoBehaviour
         doorBot = _doorBot;
         doorLeft = _doorLeft;
         doorRight = _doorRight;
-
+        roomIconForMap = _roomIconForMap;
+        defaultRoomColor = MapSpriteSelector.PickColor(type);
+        activeRoomColor = MapSpriteSelector.PickColor(-1);
         mortalEnemiesInRoom = GetComponentsInChildren<Enemy>();
 
         CMCamera = GetComponentInChildren<CinemachineVirtualCamera>();
@@ -87,6 +96,24 @@ public class RoomInstance : MonoBehaviour
         {
             enemy.enemyState = EnemyState.Active;
         }
+    }
+
+
+    public void InstantiateMapSprite()
+    {
+        objectWithMapSprite = new GameObject();
+        SpriteRenderer renderer = objectWithMapSprite.AddComponent<SpriteRenderer>();
+        renderer.sprite = roomIconForMap;
+        renderer.color = MapSpriteSelector.PickColor(type);
+
+        Vector2 drawPos = gridPos;
+        drawPos.x *= 16;//aspect ratio of map sprite HAS TO BE THE SAME LIKE IN LEVEL GENERATION IN DRAWMAP
+        drawPos.y *= 8;
+
+        drawPos += new Vector2(-500, 500);
+
+        objectWithMapSprite.transform.position = drawPos;
+       // Instantiate(objectWithMapSprite, drawPos, Quaternion.identity);
     }
 }
 

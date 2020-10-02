@@ -87,6 +87,9 @@ public class Door : MonoBehaviour
             
             this.parentRoom.isActive = false;
             door.parentRoom.SetRoomAndEnemiesInRoomActive();
+
+            this.parentRoom.objectWithMapSprite.GetComponent<SpriteRenderer>().color = this.parentRoom.defaultRoomColor;
+            door.parentRoom.objectWithMapSprite.GetComponent<SpriteRenderer>().color = door.parentRoom.activeRoomColor;
             return door;
         }
         return null;
@@ -94,6 +97,7 @@ public class Door : MonoBehaviour
 
     IEnumerator LockDoorForTime(Door door)
     {
+        if (!door) yield return new WaitForEndOfFrame();
         door.wasRecentlyUsed = true;
         yield return new WaitForSeconds(1f);
         door.wasRecentlyUsed = false;

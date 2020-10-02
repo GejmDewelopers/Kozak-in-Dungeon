@@ -19,7 +19,6 @@ public class LevelGeneration : MonoBehaviour
 
     public Transform playerTransform;
     public Transform mapRoot;
-    public Transform doorsRoot;
     public Transform roomsRoot;
 
     [Space(10)]
@@ -27,12 +26,13 @@ public class LevelGeneration : MonoBehaviour
     [SerializeField] float yMapAspectRatio = 8;
 
     [Tooltip("How spread are rooms in x")]
-    [SerializeField]  float xRoomSpawnAspectRatio = 4;
+    public float xRoomSpawnAspectRatio = 4;
 
     [Tooltip("How spread are rooms in y")]
-    [SerializeField] float yRoomSpawnAspectRatio = 8;
+    public float yRoomSpawnAspectRatio = 8;
 
     //it's done so both are 64 (16*4 = 8*8)
+
 
     void Start()
     {
@@ -198,11 +198,10 @@ public class LevelGeneration : MonoBehaviour
             {
                 continue; //skip where there is no room
             }
+
             Vector2 drawPos = room.gridPos;
             drawPos.x *= xMapAspectRatio;//aspect ratio of map sprite
             drawPos.y *= yMapAspectRatio;
-
-            LocateRoomsAndInstatiateRoomGameObjects(room, drawPos);
 
             //create map obj and assign its variables
             MapSpriteSelector mapper = Object.Instantiate(roomWhiteObj, drawPos, Quaternion.identity).GetComponent<MapSpriteSelector>();
@@ -212,10 +211,14 @@ public class LevelGeneration : MonoBehaviour
             mapper.right = room.doorRight;
             mapper.left = room.doorLeft;
             mapper.gameObject.transform.parent = mapRoot;
+
+            Sprite mapSprite = mapper.ReturnPickedSprite();
+            LocateRoomsAndInstatiateRoomGameObjects(room, drawPos, mapSprite);
+
         }
     }
 
-    private void LocateRoomsAndInstatiateRoomGameObjects(Room room, Vector2 drawPos)
+    private void LocateRoomsAndInstatiateRoomGameObjects(Room room, Vector2 drawPos, Sprite mapSprite)
     {
         int index = Mathf.RoundToInt(Random.Range(0, normalRoomPrefabs.Length));
         Vector2 roomDrawPos = drawPos;
@@ -230,7 +233,8 @@ public class LevelGeneration : MonoBehaviour
         recentlyDoneRoom.gameObject.transform.parent = roomsRoot;
 
         recentlyDoneRoom.AddComponent<RoomInstance>();
-        recentlyDoneRoom.GetComponent<RoomInstance>().Setup(room.gridPos, roomDrawPos, room.type, room.doorTop, room.doorRight, room.doorBot, room.doorLeft);
+        recentlyDoneRoom.GetComponent<RoomInstance>().Setup(room.gridPos, roomDrawPos, room.type, room.doorTop, room.doorRight, room.doorBot, room.doorLeft, mapSprite);
+        recentlyDoneRoom.GetComponent<RoomInstance>().InstantiateMapSprite();
     }
 
     void SetRoomDoors()

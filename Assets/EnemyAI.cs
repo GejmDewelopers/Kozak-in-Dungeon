@@ -22,7 +22,7 @@ public class EnemyAI : Enemy
         target = FindObjectOfType<PlayerHealth>().gameObject.transform;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        InvokeRepeating("UpdatePath", 0f, 0.5f);
+        //InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
     void UpdatePath()
@@ -43,9 +43,10 @@ public class EnemyAI : Enemy
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        if (path == null && enemyState == EnemyState.Waiting) return;
-
+        if (enemyState == EnemyState.Waiting) return;
+        if (wasActivated == false) InvokeRepeating("UpdatePath", 0f, 0.5f);
+        if (path == null) return;
+        if(wasActivated==false) wasActivated = true;
         if(currentWaypoint >= path.vectorPath.Count)
         {
             reachedEndOfPath = true;

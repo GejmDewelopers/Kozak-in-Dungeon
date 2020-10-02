@@ -13,14 +13,15 @@ public class MapSpriteSelector : MonoBehaviour
     public Color normalColor, enterColor;
     Color mainColor;
     SpriteRenderer rend;
-    void Start()
-    {
-        rend = GetComponent<SpriteRenderer>();
-        mainColor = normalColor;
-        PickSprite();
-        PickColor();
-    }
-    void PickSprite()
+    //void Start()
+    //{
+    //    rend = GetComponent<SpriteRenderer>();
+    //    mainColor = normalColor;
+    //    PickSprite();
+    //    PickColor();
+    //}
+
+    public Sprite ReturnPickedSprite()
     { //picks correct sprite based on the four door bools
         if (up)
         {
@@ -30,20 +31,20 @@ public class MapSpriteSelector : MonoBehaviour
                 {
                     if (left)
                     {
-                        rend.sprite = spUDRL;
+                        return spUDRL;
                     }
                     else
                     {
-                        rend.sprite = spDRU;
+                        return spDRU;
                     }
                 }
                 else if (left)
                 {
-                    rend.sprite = spULD;
+                    return spULD;
                 }
                 else
                 {
-                    rend.sprite = spUD;
+                    return spUD;
                 }
             }
             else
@@ -52,23 +53,22 @@ public class MapSpriteSelector : MonoBehaviour
                 {
                     if (left)
                     {
-                        rend.sprite = spRUL;
+                        return spRUL;
                     }
                     else
                     {
-                        rend.sprite = spUR;
+                        return spUR;
                     }
                 }
                 else if (left)
                 {
-                    rend.sprite = spUL;
+                    return spUL;
                 }
                 else
                 {
-                    rend.sprite = spU;
+                    return spU;
                 }
             }
-            return;
         }
         if (down)
         {
@@ -76,50 +76,59 @@ public class MapSpriteSelector : MonoBehaviour
             {
                 if (left)
                 {
-                    rend.sprite = spLDR;
+                    return spLDR;
                 }
                 else
                 {
-                    rend.sprite = spDR;
+                    return spDR;
                 }
             }
             else if (left)
             {
-                rend.sprite = spDL;
+                return spDL;
             }
             else
             {
-                rend.sprite = spD;
+                return spD;
             }
-            return;
         }
         if (right)
         {
             if (left)
             {
-                rend.sprite = spRL;
+                return spRL;
             }
             else
             {
-                rend.sprite = spR;
+                return spR;
             }
         }
         else
         {
-            rend.sprite = spL;
+            return spL;
         }
     }
 
-    void PickColor()
-    { //changes color based on what type the room is
-        if (type == 0)
-        {
-            mainColor = normalColor;
-        }
-        else if (type == 1)
-        {
-            mainColor = enterColor;
-        }
-        rend.color = mainColor;
+    //Color PickColor()
+    //{ //changes color based on what type the room is
+    //    if (type == 0)
+    //    {
+    //        return normalColor;
+    //    }
+    //    else if (type == 1)
+    //    {
+    //        return enterColor;
+    //    }
+    //    return mainColor;
+    //}
+
+    public static Color PickColor(int type)
+    {
+        if (type == 0) return new Color(1f, 1f, 1f, 1f);
+        if (type == 1) return new Color(0f, 1f, 0f, 1f);
+        if (type == -1) return new Color(1f, 0f, 0f, 1f); //for active room
+        return new Color(0f, 0f, 0f, 1f);
     }
+
+
 }
