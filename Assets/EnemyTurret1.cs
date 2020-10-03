@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTurret1 : EnemyTurret
+public class EnemyTurret1 : EnemyStationary
 {
     //void Start()
     //{
@@ -13,7 +13,7 @@ public class EnemyTurret1 : EnemyTurret
         if (enemyState == EnemyState.Active && wasActivated == false) StartCoroutine(FireBullets());
     }
 
-    public override IEnumerator FireBullets()
+    public IEnumerator FireBullets()
     {
         wasActivated = true;
         int direction = 0;
@@ -27,7 +27,7 @@ public class EnemyTurret1 : EnemyTurret
         }
     }
 
-    Vector2 DetermineBulletDirection(int direction)
+    public override Vector2 DetermineBulletDirection(int direction)
     {
         Vector2 dirVector;
         switch (direction)
@@ -65,7 +65,7 @@ public class EnemyTurret1 : EnemyTurret
         return dirVector;
     }
 
-    private void InstantiateBulletAndAddForce(Vector2 forceDirection)
+    public override void InstantiateBulletAndAddForce(Vector2 forceDirection)
     {
         GameObject spawnedBullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Rigidbody2D bulletRb = spawnedBullet.GetComponent<Rigidbody2D>();
@@ -74,6 +74,8 @@ public class EnemyTurret1 : EnemyTurret
 
     public override void OnDeath()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
+        print("He ded");
     }
+
 }

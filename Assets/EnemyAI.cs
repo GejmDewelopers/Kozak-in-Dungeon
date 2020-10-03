@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-public class EnemyAI : Enemy
+public class EnemyAI : EnemyMovingPathfinding
 {
     public Transform target;
 
@@ -67,5 +67,10 @@ public class EnemyAI : Enemy
         {
             currentWaypoint++;
         }
+    }
+
+    public override void OnDeath()
+    {
+        throw new System.NotImplementedException();
     }
 }
