@@ -13,13 +13,6 @@ public class MapSpriteSelector : MonoBehaviour
     public Color normalColor, enterColor;
     Color mainColor;
     SpriteRenderer rend;
-    //void Start()
-    //{
-    //    rend = GetComponent<SpriteRenderer>();
-    //    mainColor = normalColor;
-    //    PickSprite();
-    //    PickColor();
-    //}
 
     public Sprite ReturnPickedSprite()
     { //picks correct sprite based on the four door bools
@@ -108,19 +101,6 @@ public class MapSpriteSelector : MonoBehaviour
             return spL;
         }
     }
-
-    //Color PickColor()
-    //{ //changes color based on what type the room is
-    //    if (type == 0)
-    //    {
-    //        return normalColor;
-    //    }
-    //    else if (type == 1)
-    //    {
-    //        return enterColor;
-    //    }
-    //    return mainColor;
-    //}
 
     public static Color PickColor(int type)
     {

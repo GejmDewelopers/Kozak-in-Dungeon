@@ -29,6 +29,13 @@ public class Door : MonoBehaviour
     RoomInstance parentRoom;
 
     GameObject player;
+
+    private void OnDestroy()
+    {
+        //has to be done otherwise when the game is restarted via main menu, old doors are still there and there are missing refferences and one can't go through doors
+        if (allDoors.Count != 0) allDoors.Clear();
+    }
+
     private void Start()
     {
         player = FindObjectOfType<PlayerMovement>().gameObject;
@@ -80,7 +87,6 @@ public class Door : MonoBehaviour
         foreach(Door door in allDoors)
         {
             if (door.doorPos != doorLocation) continue;
-
             this.parentRoom.CMCamera.Priority = 10;
             door.parentRoom.CMCamera.Priority = 15;
 

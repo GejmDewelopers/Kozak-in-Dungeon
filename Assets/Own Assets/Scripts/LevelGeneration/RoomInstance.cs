@@ -99,9 +99,11 @@ public class RoomInstance : MonoBehaviour
     }
 
 
-    public void InstantiateMapSprite()
+    public void InstantiateMapSprite(Transform parent)
     {
         objectWithMapSprite = new GameObject();
+        objectWithMapSprite.name = "Map Piece";
+
         SpriteRenderer renderer = objectWithMapSprite.AddComponent<SpriteRenderer>();
         renderer.sprite = roomIconForMap;
         renderer.color = MapSpriteSelector.PickColor(type);
@@ -113,6 +115,7 @@ public class RoomInstance : MonoBehaviour
         drawPos += new Vector2(-500, 500);
 
         objectWithMapSprite.transform.position = drawPos;
+        objectWithMapSprite.transform.parent = parent;
        // Instantiate(objectWithMapSprite, drawPos, Quaternion.identity);
     }
 }

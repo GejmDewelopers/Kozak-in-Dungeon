@@ -8,7 +8,8 @@ public class LevelGeneration : MonoBehaviour
     Vector2 worldSize = new Vector2(4, 4);
     Room[,] rooms;
     List<Vector2> takenPositions = new List<Vector2>();
-    int gridSizeX, gridSizeY, numberOfRooms = 20;
+    int gridSizeX, gridSizeY;
+    [SerializeField] int numberOfRooms = 20;
     public GameObject roomWhiteObj;
 
     public GameObject[] normalRoomPrefabs;
@@ -204,13 +205,15 @@ public class LevelGeneration : MonoBehaviour
             drawPos.y *= yMapAspectRatio;
 
             //create map obj and assign its variables
-            MapSpriteSelector mapper = Object.Instantiate(roomWhiteObj, drawPos, Quaternion.identity).GetComponent<MapSpriteSelector>();
+            //MapSpriteSelector mapper = Object.Instantiate(roomWhiteObj, drawPos, Quaternion.identity).GetComponent<MapSpriteSelector>();
+
+            MapSpriteSelector mapper = roomWhiteObj.GetComponent<MapSpriteSelector>();
             mapper.type = room.type;
             mapper.up = room.doorTop;
             mapper.down = room.doorBot;
             mapper.right = room.doorRight;
             mapper.left = room.doorLeft;
-            mapper.gameObject.transform.parent = mapRoot;
+            //mapper.gameObject.transform.parent = mapRoot;
 
             Sprite mapSprite = mapper.ReturnPickedSprite();
             LocateRoomsAndInstatiateRoomGameObjects(room, drawPos, mapSprite);
@@ -234,7 +237,7 @@ public class LevelGeneration : MonoBehaviour
 
         recentlyDoneRoom.AddComponent<RoomInstance>();
         recentlyDoneRoom.GetComponent<RoomInstance>().Setup(room.gridPos, roomDrawPos, room.type, room.doorTop, room.doorRight, room.doorBot, room.doorLeft, mapSprite);
-        recentlyDoneRoom.GetComponent<RoomInstance>().InstantiateMapSprite();
+        recentlyDoneRoom.GetComponent<RoomInstance>().InstantiateMapSprite(mapRoot);
     }
 
     void SetRoomDoors()
