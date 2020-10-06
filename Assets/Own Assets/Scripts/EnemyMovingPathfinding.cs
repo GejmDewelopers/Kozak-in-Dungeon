@@ -18,7 +18,6 @@ public abstract class EnemyMovingPathfinding : Enemy
         target = FindObjectOfType<PlayerHealth>().gameObject.transform;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        //InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
     protected void UpdatePath()

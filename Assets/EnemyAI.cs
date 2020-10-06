@@ -5,39 +5,11 @@ using Pathfinding;
 
 public class EnemyAI : EnemyMovingPathfinding
 {
-    public Transform target;
-
-    public float speed = 200f;
-    public float nextWaypointDistance = 3f;
-
-    Path path;
-    int currentWaypoint = 0;
-    bool reachedEndOfPath = false;
-
-    Seeker seeker;
-    Rigidbody2D rb;
-
     void Start()
     {
         target = FindObjectOfType<PlayerHealth>().gameObject.transform;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        //InvokeRepeating("UpdatePath", 0f, 0.5f);
-    }
-
-    void UpdatePath()
-    {
-        if(seeker.IsDone())
-        seeker.StartPath(rb.position, target.position, OnPathComplete);
-    }
-
-    void OnPathComplete(Path p)
-    {
-        if (!p.error)
-        {
-            this.path = p;
-            currentWaypoint = 0;
-        }
     }
 
     // Update is called once per frame

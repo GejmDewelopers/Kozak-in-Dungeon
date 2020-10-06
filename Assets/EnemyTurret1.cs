@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class EnemyTurret1 : EnemyStationary
 {
-    //void Start()
-    //{
-    //    StartCoroutine(FireBullets());
-    //}
     private void Update()
     {
         if (enemyState == EnemyState.Active && wasActivated == false) StartCoroutine(FireBullets());

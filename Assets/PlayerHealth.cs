@@ -11,11 +11,11 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Color normalColor = new Color(1f, 1f, 1f, 1f);
     [SerializeField] Color damageColor = new Color(1f, 1f, 1f, 0.1f);
-    public PlayerState state;
+    public PlayerHealthState state;
     bool isVulnerable = true;
     private void Start()
     {
-        state = PlayerState.Alive;
+        state = PlayerHealthState.Alive;
         healthDisplay.SetHealth(healthPoints);
     }
 
@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
         healthDisplay.SetHealth(healthPoints);
         if (healthPoints <= 0)
         {
-            state = PlayerState.Dead;
+            state = PlayerHealthState.Dead;
             ManageDeathParticles();
             GetComponent<SpriteRenderer>().enabled = false;
             Time.timeScale = 0.1f;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] float speed = 10f;
+    public static float speed = 10f;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Camera cam;
     Animator animator;
@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        if (playerHealthScript.state == PlayerState.Alive && !PauseMenu.GameIsPaused)
+        if (playerHealthScript.state == PlayerHealthState.Alive && !PauseMenu.GameIsPaused)
         {
             TakeInputs();
             RunAnimHandler();
