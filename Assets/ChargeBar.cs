@@ -6,11 +6,6 @@ using UnityEngine.UI;
 
 public class ChargeBar : MonoBehaviour
 {
-    //bool isMouseKeyPressed = false;
-    float timer;
-    [SerializeField] PlayerShooting playerShootingScript;
-
-
     public Slider slider;
 
 
@@ -20,14 +15,12 @@ public class ChargeBar : MonoBehaviour
     public Gradient gradient;
 
 
-    public void ProcessChargeBar(bool isKeyPressed)
+    public void ProcessChargeBar(bool isKeyPressed, float timer)
     {
         if (isKeyPressed)
         {
-            timer += Time.deltaTime;
             if (timer >= 0.5f)
             {
-                PlayerMovement.speed = 3f;
                 chargeBarBorder.SetActive(true);
                 chargeBar.SetActive(true);
 
@@ -46,13 +39,6 @@ public class ChargeBar : MonoBehaviour
         else
         {
             slider.value = 0f;
-            if(timer > 0.5f && playerShootingScript != null)
-            {
-                playerShootingScript.ProcessHardHit(timer-0.5f);
-            }
-
-            PlayerMovement.speed = 10f;
-            timer = 0;
             chargeBar.SetActive(false);
             chargeBarBorder.SetActive(false);
         }

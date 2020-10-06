@@ -10,6 +10,15 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Animator animator;
     [SerializeField] ChargeBar chargeBar;
+
+    [Space(4)]
+    //Multipliers to charged hits
+    public float hardLightMultiplier = 1.3f;
+    public float hardMediumMultiplier = 1.6f;
+    public float hardStrongMultiplier = 2f;
+
+    [Space(4)]
+
     public GameObject playerArm;
     Bullet playerArmBulletScript;
     float hitDamage;
@@ -18,16 +27,19 @@ public class PlayerShooting : MonoBehaviour
     public float bulletForce = 20f;
     PlayerHealth playerHealthScript;
 
+    PlayerMovement playerMovement;
+
     float timer;
 
     private void Start()
     {
         playerHealthScript = GetComponent<PlayerHealth>();
-
         playerArmBulletScript = playerArm.GetComponentInChildren<Bullet>();
         hitDamage = playerArmBulletScript.damage;
 
         playerArm.SetActive(false);
+
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     void Update()
@@ -41,41 +53,32 @@ public class PlayerShooting : MonoBehaviour
                 animator.SetTrigger("Shoot");
             }
 
-            if (Input.GetButton("Fire2") && playerHealthScript.state == PlayerHealthState.Alive)
-            {
-                timer += Time.deltaTime;
-                if (timer >= 0.5f)
-                {
-                    PlayerMovement.speed = 3f;
-                    chargeBarBorder.SetActive(true);
-                    chargeBar.SetActive(true);
+            ProcessMeleeAttackAndChargeBar();
+        }
+    }
 
-                    if (timer >= 1.5f)
-                    {
-                        slider.value = 1f;
-                        chargeBar.GetComponent<Image>().color = gradient.Evaluate(slider.value);
-                    }
-                    else
-                    {
-                        slider.value = timer - 0.5f;
-                        chargeBar.GetComponent<Image>().color = gradient.Evaluate(slider.value);
-                    }
-                }
+    private void ProcessMeleeAttackAndChargeBar()
+    {
+        if (Input.GetButton("Fire2") && playerHealthScript.state == PlayerHealthState.Alive && !playerArm.activeSelf)
+        {
+            timer += Time.deltaTime;
+        }
+        if (Input.GetButtonUp("Fire2") && playerHealthScript.state == PlayerHealthState.Alive && !playerArm.activeSelf)
+        {
+            if (timer < 0.5f)
+            {
+                ProcessHit(false, 0);
+                timer = 0f;
             }
             else
             {
-                slider.value = 0f;
-                if (timer > 0.5f && playerShootingScript != null)
-                {
-                    playerShootingScript.ProcessHardHit(timer - 0.5f);
-                }
-
-                PlayerMovement.speed = 10f;
-                timer = 0;
-                chargeBar.SetActive(false);
-                chargeBarBorder.SetActive(false);
+                ProcessHit(true, timer - 0.5f);
+                timer = 0f;
             }
         }
+        if (timer >= 0.5f) playerMovement.speed = 3f;
+        else playerMovement.speed = 10f;
+        chargeBar.ProcessChargeBar(Input.GetButton("Fire2"), timer);
     }
 
     private void Shoot()
@@ -88,6 +91,7 @@ public class PlayerShooting : MonoBehaviour
 
     IEnumerator SwingArm(float damage)
     {
+        print(damage);
         playerArm.SetActive(true);
         memoryDamage = playerArmBulletScript.damage;
         playerArmBulletScript.damage = damage;
@@ -105,18 +109,23 @@ public class PlayerShooting : MonoBehaviour
         playerArm.SetActive(false);
     }
 
-    void ProcessHardHit(float value)
+    void ProcessHit(bool isHard, float value)
     {
-        if (value < 0.4f) {
-            StartCoroutine(SwingArm(hitDamage * 1.3f));
-        }
-        if(value >= 0.4f && value <= 0.9f)
+        if (!isHard) StartCoroutine(SwingArm(hitDamage));
+        else
         {
-            StartCoroutine(SwingArm(hitDamage * 1.6f));
-        }
-        if (value >= 0.9f)
-        {
-            StartCoroutine(SwingArm(hitDamage * 2f));
+            if (value < 0.4f)
+            {
+                StartCoroutine(SwingArm(hitDamage * hardLightMultiplier));
+            }
+            if (value >= 0.4f && value <= 0.9f)
+            {
+                StartCoroutine(SwingArm(hitDamage * hardMediumMultiplier));
+            }
+            if (value >= 0.9f)
+            {
+                StartCoroutine(SwingArm(hitDamage * hardStrongMultiplier));
+            }
         }
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public static float speed = 10f;
+    public float speed = 10f;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Camera cam;
     Animator animator;
