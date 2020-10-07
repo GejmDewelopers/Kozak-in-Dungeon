@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Color normalColor = new Color(1f, 1f, 1f, 1f);
     [SerializeField] Color damageColor = new Color(1f, 1f, 1f, 0.1f);
-    public PlayerHealthState state;
+    public static PlayerHealthState state;
     bool isVulnerable = true;
     private void Start()
     {

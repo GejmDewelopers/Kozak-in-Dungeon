@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using System;
 
 public class Door : MonoBehaviour
 {
@@ -87,10 +88,13 @@ public class Door : MonoBehaviour
         foreach(Door door in allDoors)
         {
             if (door.doorPos != doorLocation) continue;
+            //if it reaches here, we are sure the right door was iterated and we do things accordingly to change camera, activity of the room and color on minimap
             this.parentRoom.CMCamera.Priority = 10;
             door.parentRoom.CMCamera.Priority = 15;
 
+            StartCoroutine(BlockPlayerControlls());
             
+
             this.parentRoom.isActive = false;
             door.parentRoom.SetRoomAndEnemiesInRoomActive();
 
@@ -99,6 +103,13 @@ public class Door : MonoBehaviour
             return door;
         }
         return null;
+    }
+
+    private IEnumerator BlockPlayerControlls()
+    {
+        PlayerHealth.state = PlayerHealthState.BlockedControlls;
+        yield return new WaitForSeconds(1.5f);
+        PlayerHealth.state = PlayerHealthState.Alive;
     }
 
     IEnumerator LockDoorForTime(Door door)

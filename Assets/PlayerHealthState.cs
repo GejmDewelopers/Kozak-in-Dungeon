@@ -1,4 +1,5 @@
 ﻿public enum PlayerHealthState { 
-    Alive, 
+    Alive,
+    BlockedControlls,
     Dead 
 };
