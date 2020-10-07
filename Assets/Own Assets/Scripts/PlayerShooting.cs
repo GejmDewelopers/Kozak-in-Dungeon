@@ -56,7 +56,7 @@ public class PlayerShooting : MonoBehaviour
         if (!PauseMenu.GameIsPaused)
         {
             //TODO: MAYBE REMOVE ONE OF THE OFFENCE MECHANISM LATER
-            if (Input.GetButtonDown("Fire1") && playerHealthScript.state == PlayerHealthState.Alive)
+            if (Input.GetButtonDown("Fire1") && PlayerHealth.state == PlayerHealthState.Alive)
             {
                 Shoot();
                 animator.SetTrigger("Shoot");
@@ -68,11 +68,11 @@ public class PlayerShooting : MonoBehaviour
 
     private void ProcessMeleeAttackAndChargeBar()
     {
-        if (Input.GetButton("Fire2") && playerHealthScript.state == PlayerHealthState.Alive && !playerArm.activeSelf)
+        if (Input.GetButton("Fire2") && PlayerHealth.state == PlayerHealthState.Alive && !playerArm.activeSelf)
         {
             timer += Time.deltaTime;
         }
-        if (Input.GetButtonUp("Fire2") && playerHealthScript.state == PlayerHealthState.Alive && !playerArm.activeSelf)
+        if (Input.GetButtonUp("Fire2") && PlayerHealth.state == PlayerHealthState.Alive && !playerArm.activeSelf)
         {
             if (timer < 0.5f)
             {

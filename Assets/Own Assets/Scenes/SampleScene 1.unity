@@ -945,12 +945,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196058280}
   m_CullTransparentMesh: 0
---- !u!96 &218302055 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 1814847819, guid: ca8fb28dfa942aa448301b08d8695c76,
-    type: 3}
-  m_PrefabInstance: {fileID: 2791012406937449717}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &235247216
 GameObject:
   m_ObjectHideFlags: 0
@@ -1904,12 +1898,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 521711541}
   m_CullTransparentMesh: 0
---- !u!96 &540796351 stripped
-TrailRenderer:
-  m_CorrespondingSourceObject: {fileID: 613472569, guid: ca8fb28dfa942aa448301b08d8695c76,
-    type: 3}
-  m_PrefabInstance: {fileID: 2791012406937449717}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &548502430
 GameObject:
   m_ObjectHideFlags: 0
@@ -6841,109 +6829,6 @@ PrefabInstance:
       propertyPath: healthDisplay
       value: 
       objectReference: {fileID: 1103975977}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: swingTrails.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: lightTrailGradient.key0.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: lightTrailGradient.key0.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: lightTrailGradient.key0.b
-      value: 0.07073355
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: lightTrailGradient.ctime1
-      value: 65535
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: lightTrailGradient.key1.r
-      value: 0.075834274
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: lightTrailGradient.key1.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: lightTrailGradient.atime1
-      value: 65535
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: lightTrailGradient.key1.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: mediumTrailGradient.key0.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: mediumTrailGradient.key0.g
-      value: 0.9538098
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: mediumTrailGradient.key0.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: mediumTrailGradient.key1.g
-      value: 0.94731724
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: mediumTrailGradient.key1.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: hardTrailGradient.key0.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: hardTrailGradient.key0.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: hardTrailGradient.key0.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: hardTrailGradient.key1.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: hardTrailGradient.key1.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: hardTrailGradient.key1.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: swingTrails.Array.data[0]
-      value: 
-      objectReference: {fileID: 540796351}
-    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
-      propertyPath: swingTrails.Array.data[1]
-      value: 
-      objectReference: {fileID: 218302055}
-    - target: {fileID: 771988304259438851, guid: ca8fb28dfa942aa448301b08d8695c76,
-        type: 3}
-      propertyPath: gradient.ctime3
-      value: 55512
-      objectReference: {fileID: 0}
-    - target: {fileID: 771988304259438851, guid: ca8fb28dfa942aa448301b08d8695c76,
-        type: 3}
-      propertyPath: gradient.ctime2
-      value: 48766
-      objectReference: {fileID: 0}
-    - target: {fileID: 771988304259438851, guid: ca8fb28dfa942aa448301b08d8695c76,
-        type: 3}
-      propertyPath: gradient.ctime1
-      value: 28334
-      objectReference: {fileID: 0}
     - target: {fileID: 2791012408127015906, guid: ca8fb28dfa942aa448301b08d8695c76,
         type: 3}
       propertyPath: m_Name
@@ -6954,6 +6839,11 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 2791012408127015918, guid: ca8fb28dfa942aa448301b08d8695c76,
+        type: 3}
+      propertyPath: minimapUIImage
+      value: 
+      objectReference: {fileID: 1680436944}
     - target: {fileID: 2791012408127015919, guid: ca8fb28dfa942aa448301b08d8695c76,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -22,6 +22,10 @@ public class RoomInstance : MonoBehaviour
     public List<Door> thisRoomsDoors = new List<Door>();
 
     public Enemy[] mortalEnemiesInRoom;
+    int mortalEnemiesInRoomCount;
+
+    public static float leftRightDoorPosOffset = 0.45f;
+    public static float upDownDorPosOffset = 0.45f;
 
     //for minimap
     public Sprite roomIconForMap;
@@ -55,10 +59,10 @@ public class RoomInstance : MonoBehaviour
 
     void MakeDoors()
     {
-        Vector2 topDoorPos = roomPos + new Vector2(0.5f, -7.5f);
-        Vector2 botDoorPos = roomPos + new Vector2(0.5f, -17.5f);
-        Vector2 leftDoorPos = roomPos + new Vector2(-8.5f, -12.5f);
-        Vector2 rightDoorPos = roomPos + new Vector2(9.5f, -12.5f);
+        Vector2 topDoorPos = roomPos + new Vector2(0.5f, -7.5f + upDownDorPosOffset);
+        Vector2 botDoorPos = roomPos + new Vector2(0.5f, -17.5f - upDownDorPosOffset);
+        Vector2 leftDoorPos = roomPos + new Vector2(-8.5f - leftRightDoorPosOffset, -12.5f);
+        Vector2 rightDoorPos = roomPos + new Vector2(9.5f + leftRightDoorPosOffset, -12.5f);
 
         if (doorTop)
         {
@@ -117,6 +121,39 @@ public class RoomInstance : MonoBehaviour
         objectWithMapSprite.transform.position = drawPos;
         objectWithMapSprite.transform.parent = parent;
        // Instantiate(objectWithMapSprite, drawPos, Quaternion.identity);
+    }
+
+    private void Start()
+    {
+        mortalEnemiesInRoomCount = mortalEnemiesInRoom.Length;
+    }
+
+    private void Update()
+    {
+        if (isActive)
+        {
+            int i=0;
+            foreach(Enemy enemy in mortalEnemiesInRoom)
+            {
+                if (enemy == null) i++;
+            }
+            if (i == mortalEnemiesInRoomCount)
+            {
+                foreach(Door door in thisRoomsDoors)
+                {
+                    door.spriteRenderer.color = door.defaultDoorColor;
+                    door.isLocked = false;
+                }
+            }
+            else
+            {
+                foreach (Door door in thisRoomsDoors)
+                {
+                    door.spriteRenderer.color = door.lockedDoorColor;
+                    door.isLocked = true;
+                }
+            }
+        }
     }
 }
 
