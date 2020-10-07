@@ -12,6 +12,15 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] ChargeBar chargeBar;
 
     [Space(4)]
+
+    [SerializeField] TrailRenderer[] swingTrails;
+    [SerializeField] Gradient defaultTrailGradient;
+    [SerializeField] Gradient lightTrailGradient;
+    [SerializeField] Gradient mediumTrailGradient;
+    [SerializeField] Gradient hardTrailGradient;
+
+
+    [Space(4)]
     //Multipliers to charged hits
     public float hardLightMultiplier = 1.3f;
     public float hardMediumMultiplier = 1.6f;
@@ -89,13 +98,17 @@ public class PlayerShooting : MonoBehaviour
         Destroy(bullet.gameObject, 5f);
     }
 
-    IEnumerator SwingArm(float damage)
+    IEnumerator SwingArm(float damage, int type)
     {
-        print(damage);
         playerArm.SetActive(true);
+
         memoryDamage = playerArmBulletScript.damage;
         playerArmBulletScript.damage = damage;
-        for (float i=1f; i>0.1; i-=0.1f)
+
+        SetTrailColors(type);
+
+        //changing arm position
+        for (float i = 1f; i > 0.1; i -= 0.1f)
         {
             playerArm.transform.rotation = Quaternion.Euler(0, 0, 60 * i + this.gameObject.transform.rotation.eulerAngles.z);
             yield return new WaitForSeconds(0.005f);
@@ -105,26 +118,60 @@ public class PlayerShooting : MonoBehaviour
             playerArm.transform.rotation = Quaternion.Euler(0, 0, -60 * i + this.gameObject.transform.rotation.eulerAngles.z);
             yield return new WaitForSeconds(0.005f);
         }
+
         playerArmBulletScript.damage = memoryDamage;
+
         playerArm.SetActive(false);
+    }
+
+    private void SetTrailColors(int type)
+    {
+        if (type == 0)
+        {
+            foreach (TrailRenderer trail in swingTrails)
+            {
+                trail.colorGradient = defaultTrailGradient;
+            }
+        }
+        if (type == 1)
+        {
+            foreach(TrailRenderer trail in swingTrails)
+            {
+                trail.colorGradient = lightTrailGradient;
+            }
+        }
+        if (type == 2)
+        {
+            foreach (TrailRenderer trail in swingTrails)
+            {
+                trail.colorGradient = mediumTrailGradient;
+            }
+        }
+        if (type == 3)
+        {
+            foreach (TrailRenderer trail in swingTrails)
+            {
+                trail.colorGradient = hardTrailGradient;
+            }
+        }
     }
 
     void ProcessHit(bool isHard, float value)
     {
-        if (!isHard) StartCoroutine(SwingArm(hitDamage));
+        if (!isHard) StartCoroutine(SwingArm(hitDamage,0));
         else
         {
             if (value < 0.4f)
             {
-                StartCoroutine(SwingArm(hitDamage * hardLightMultiplier));
+                StartCoroutine(SwingArm(hitDamage * hardLightMultiplier, 1));
             }
             if (value >= 0.4f && value <= 0.9f)
             {
-                StartCoroutine(SwingArm(hitDamage * hardMediumMultiplier));
+                StartCoroutine(SwingArm(hitDamage * hardMediumMultiplier, 2));
             }
             if (value >= 0.9f)
             {
-                StartCoroutine(SwingArm(hitDamage * hardStrongMultiplier));
+                StartCoroutine(SwingArm(hitDamage * hardStrongMultiplier, 3));
             }
         }
     }
