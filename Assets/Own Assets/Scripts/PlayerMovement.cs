@@ -19,6 +19,16 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 movement;
     Vector2 mousePos;
+
+    bool wasEvadeClicked;
+    public float evadeMultiplicator = 6f;
+    static float evadeTimer = 0f;
+    [SerializeField] float timeToChargeOneEvadeStack = 2f;
+    [SerializeField] float timeBetweenEvades = 1f;
+    float chargeCooldown = 0.5f;
+    float temporary = 0;
+    float timeSinceLastEvade = 0f;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -26,7 +36,8 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    { 
+    {
+        ManageEvadeTimer();
         if (PlayerHealth.state == PlayerHealthState.Alive && !PauseMenu.GameIsPaused)
         {
             TakeInputs();
@@ -36,6 +47,18 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             animator.SetBool("isRunning", false);
+        }
+    }
+
+    private void ManageEvadeTimer()
+    {
+        float timeThisFrame = Time.deltaTime;
+        temporary += timeThisFrame;
+        timeSinceLastEvade += timeThisFrame;
+        if (timeSinceLastEvade >= 100f) timeSinceLastEvade = 100f;
+        if (temporary >= chargeCooldown) {
+            evadeTimer += timeThisFrame;
+            if (evadeTimer >= 3 * timeToChargeOneEvadeStack) evadeTimer = 3 * timeToChargeOneEvadeStack;            
         }
     }
 
@@ -60,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+        wasEvadeClicked = Input.GetAxisRaw("Jump") > Mathf.Epsilon || Input.GetAxisRaw("Jump") < -Mathf.Epsilon;
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
@@ -78,10 +102,37 @@ public class PlayerMovement : MonoBehaviour
     {
         if (PlayerHealth.state == PlayerHealthState.Alive && !PauseMenu.GameIsPaused)
         {
+            if (wasEvadeClicked && timeSinceLastEvade >= timeBetweenEvades && evadeTimer >= timeToChargeOneEvadeStack)
+            {
+                evadeTimer -= timeToChargeOneEvadeStack;
+                temporary = 0;
+                timeSinceLastEvade = 0;
+                Vector2 whereToTPPlayer = DetermineTeleportDirection();
+                print(whereToTPPlayer);
+                gameObject.transform.position = rb.position + whereToTPPlayer * evadeMultiplicator;
+            }
             rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
             Vector2 lookDir = mousePos - rb.position;
             float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
             rb.rotation = angle;
         }
+    }
+
+    private Vector2 DetermineTeleportDirection()
+    {
+        if (movement.x > 0 && movement.y > 0) return new Vector2(0.707f, 0.707f);
+        if (movement.x < 0 && movement.y < 0) return new Vector2(-0.707f, -0.707f);
+        if (movement.x > 0 && movement.y < 0) return new Vector2(0.707f, -0.707f);
+        if (movement.x < 0 && movement.y > 0) return new Vector2(-0.707f, 0.707f);
+        if (movement.x > 0 && movement.y == 0) return new Vector2(1, 0);
+        if (movement.x < 0 && movement.y == 0) return new Vector2(-1, 0);
+        if (movement.x == 0 && movement.y > 0) return new Vector2(0, 1);
+        if (movement.x == 0 && movement.y < 0) return new Vector2(0, -1);
+
+        return new Vector2(0, 0);
+    }
+
+    public static float getEvadeTimer() {
+        return evadeTimer;
     }
 }

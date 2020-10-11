@@ -123,6 +123,11 @@ public class RoomInstance : MonoBehaviour
        // Instantiate(objectWithMapSprite, drawPos, Quaternion.identity);
     }
 
+    private void OnDestroy()
+    {
+        Destroy(objectWithMapSprite);
+    }
+
     private void Start()
     {
         mortalEnemiesInRoomCount = mortalEnemiesInRoom.Length;
