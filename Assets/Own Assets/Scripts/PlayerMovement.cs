@@ -7,7 +7,9 @@ public class PlayerMovement : MonoBehaviour
 {
     //this script will manage the clicked things other than movement, like M for monimap enlargement etc.
 
-    public float speed = 10f;
+    public float defaultSpeed = 6f;
+    public float chargingAttackSpeed = 3f;
+    public float speed = 6f;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] Camera cam;
 
@@ -21,17 +23,18 @@ public class PlayerMovement : MonoBehaviour
     Vector2 mousePos;
 
     bool wasEvadeClicked;
-    public float evadeMultiplicator = 6f;
+    public float evadeMultiplicator = 1f;
     static float evadeTimer = 0f;
     [SerializeField] float timeToChargeOneEvadeStack = 2f;
     [SerializeField] float timeBetweenEvades = 1f;
     float chargeCooldown = 0.5f;
-    float temporary = 0;
+    float temporary = 0f;
     float timeSinceLastEvade = 0f;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        evadeTimer = 100f;
     }
 
     // Update is called once per frame
@@ -56,9 +59,10 @@ public class PlayerMovement : MonoBehaviour
         temporary += timeThisFrame;
         timeSinceLastEvade += timeThisFrame;
         if (timeSinceLastEvade >= 100f) timeSinceLastEvade = 100f;
-        if (temporary >= chargeCooldown) {
+        if (temporary >= chargeCooldown)
+        {
             evadeTimer += timeThisFrame;
-            if (evadeTimer >= 3 * timeToChargeOneEvadeStack) evadeTimer = 3 * timeToChargeOneEvadeStack;            
+            if (evadeTimer >= 3 * timeToChargeOneEvadeStack) evadeTimer = 3 * timeToChargeOneEvadeStack;
         }
     }
 
@@ -108,7 +112,6 @@ public class PlayerMovement : MonoBehaviour
                 temporary = 0;
                 timeSinceLastEvade = 0;
                 Vector2 whereToTPPlayer = DetermineTeleportDirection();
-                print(whereToTPPlayer);
                 gameObject.transform.position = rb.position + whereToTPPlayer * evadeMultiplicator;
             }
             rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
@@ -132,7 +135,30 @@ public class PlayerMovement : MonoBehaviour
         return new Vector2(0, 0);
     }
 
-    public static float getEvadeTimer() {
+    public static float getEvadeTimer()
+    {
         return evadeTimer;
+    }
+
+    public void FlatChangeSpeed(float value)
+    {
+        defaultSpeed += value;
+        speed += value;
+    }
+
+    public void MultiplierChangeSpeed(float multiplier)
+    {
+        defaultSpeed *= multiplier;
+        speed *= multiplier;
+    }
+
+    public float GetTimeToChargeOneEvadeStack()
+    {
+        return timeToChargeOneEvadeStack;
+    }
+
+    public void FlatChangeTimeToChargeOneEvadeStack(float value)
+    {
+        timeToChargeOneEvadeStack -= value;
     }
 }

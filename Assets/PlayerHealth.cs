@@ -27,12 +27,17 @@ public class PlayerHealth : MonoBehaviour
         healthDisplay.SetHealth(healthPoints);
         if (healthPoints <= 0)
         {
-            state = PlayerHealthState.Dead;
-            ManageDeathParticles();
-            GetComponent<SpriteRenderer>().enabled = false;
-            Time.timeScale = 0.1f;
-            Invoke("LoadFirstLevel", 0.2f);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        state = PlayerHealthState.Dead;
+        ManageDeathParticles();
+        GetComponent<SpriteRenderer>().enabled = false;
+        Time.timeScale = 0.1f;
+        Invoke("LoadFirstLevel", 0.2f);
     }
 
     IEnumerator IFrames()
@@ -65,5 +70,16 @@ public class PlayerHealth : MonoBehaviour
     private void OnLevelWasLoaded(int level)
     {
         Time.timeScale = 1f;
+    }
+
+    public void ChangeHPAndDisplay(int value)
+    {
+        healthPoints += value;
+        if (healthPoints > 10) healthPoints = 10;
+        healthDisplay.SetHealth(healthPoints);
+        if (healthPoints <= 0)
+        {
+            Die();
+        }
     }
 }

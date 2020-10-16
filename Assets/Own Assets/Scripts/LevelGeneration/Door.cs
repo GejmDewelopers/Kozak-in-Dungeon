@@ -107,6 +107,10 @@ public class Door : MonoBehaviour
 
             StartCoroutine(BlockPlayerControllsAndActivateEnemiesAfterTime(door));
 
+            //THIS WORKS, MAYBE UNCOMMENT LATER
+            //if (this.parentRoom.objectWithMapSprite == null) this.parentRoom.InstantiateMapSprite(null);
+            //if (door.parentRoom.objectWithMapSprite == null) door.parentRoom.InstantiateMapSprite(null);
+
             this.parentRoom.objectWithMapSprite.GetComponent<SpriteRenderer>().color = this.parentRoom.defaultRoomColor;
             door.parentRoom.objectWithMapSprite.GetComponent<SpriteRenderer>().color = door.parentRoom.activeRoomColor;
             return door;

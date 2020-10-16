@@ -9,10 +9,8 @@ public class MapSpriteSelector : MonoBehaviour
             spUD, spRL, spUR, spUL, spDR, spDL,
             spULD, spRUL, spDRU, spLDR, spUDRL;
     public bool up, down, left, right;
-    public int type; // 0: normal, 1: enter
+    public RoomType type; // 0: normal, 1: enter
     public Color normalColor, enterColor;
-    Color mainColor;
-    SpriteRenderer rend;
 
     public Sprite ReturnPickedSprite()
     { //picks correct sprite based on the four door bools
@@ -102,11 +100,13 @@ public class MapSpriteSelector : MonoBehaviour
         }
     }
 
-    public static Color PickColor(int type)
+    public static Color PickColor(RoomType type)
     {
-        if (type == 0) return new Color(1f, 1f, 1f, 1f);
-        if (type == 1) return new Color(0f, 1f, 0f, 1f);
-        if (type == -1) return new Color(1f, 0f, 0f, 1f); //for active room
+        if (type == RoomType.NormalRoom) return new Color(1f, 1f, 1f, 1f);
+        if (type == RoomType.BaseRoom) return new Color(0f, 1f, 0f, 1f);
+        if (type == RoomType.BossRoom) return new Color(0f, 0.5f, 0.5f, 1f);
+        if (type == RoomType.Shop) return new Color(1f, 0f, 0.5f, 1f);
+        if (type == RoomType.Active) return new Color(1f, 0f, 0f, 1f); //for active room
         return new Color(0f, 0f, 0f, 1f);
     }
 

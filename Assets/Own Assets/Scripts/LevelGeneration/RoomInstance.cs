@@ -9,7 +9,9 @@ public class RoomInstance : MonoBehaviour
     public Vector2 gridPos;
     Vector2 roomPos;
 
-    public int type;
+    public RoomType type;
+
+    public int numberOfNeighbours;
 
     public bool isActive = false; // set from door script
     public bool isCompleted = false;
@@ -34,7 +36,7 @@ public class RoomInstance : MonoBehaviour
 
     public GameObject objectWithMapSprite;
 
-    public void Setup(Vector2 _gridPos, Vector2 _roomPos, int _type, bool _doorTop, bool _doorRight, bool _doorBot, bool _doorLeft, Sprite _roomIconForMap)
+    public void Setup(Vector2 _gridPos, Vector2 _roomPos, RoomType _type, bool _doorTop, bool _doorRight, bool _doorBot, bool _doorLeft, int _numberOfNeighbours, Sprite _roomIconForMap)
     {
         gridPos = _gridPos;
         roomPos = _roomPos;
@@ -43,13 +45,14 @@ public class RoomInstance : MonoBehaviour
         doorBot = _doorBot;
         doorLeft = _doorLeft;
         doorRight = _doorRight;
+        numberOfNeighbours = _numberOfNeighbours;
         roomIconForMap = _roomIconForMap;
         defaultRoomColor = MapSpriteSelector.PickColor(type);
-        activeRoomColor = MapSpriteSelector.PickColor(-1);
+        activeRoomColor = MapSpriteSelector.PickColor(RoomType.Active);
         mortalEnemiesInRoom = GetComponentsInChildren<Enemy>();
 
         CMCamera = GetComponentInChildren<CinemachineVirtualCamera>();
-        if (type == 1)
+        if (type == RoomType.BaseRoom)
         {
             CMCamera.Priority = 15;
             isActive = true;
@@ -119,7 +122,7 @@ public class RoomInstance : MonoBehaviour
         drawPos += new Vector2(-500, 500);
 
         objectWithMapSprite.transform.position = drawPos;
-        objectWithMapSprite.transform.parent = parent;
+        if(parent != null) objectWithMapSprite.transform.parent = parent;
        // Instantiate(objectWithMapSprite, drawPos, Quaternion.identity);
     }
 

@@ -85,8 +85,8 @@ public class PlayerShooting : MonoBehaviour
                 timer = 0f;
             }
         }
-        if (timer >= 0.5f) playerMovement.speed = 3f;
-        else playerMovement.speed = 10f;
+        if (timer >= 0.5f) playerMovement.speed = playerMovement.chargingAttackSpeed;
+        else playerMovement.speed = playerMovement.defaultSpeed;
         chargeBar.ProcessChargeBar(Input.GetButton("Fire2"), timer);
     }
 
@@ -176,4 +176,48 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
+    public float GetHitDamage()
+    {
+        return hitDamage;
+    }
+
+    public void FlatChangeDamage(float value)
+    {
+        hitDamage += value;
+    }
+
+    public void MultiplierChangeDamage(float multiplier)
+    {
+        hitDamage *= multiplier;
+    }
+
+    public void FlatChangeLightAttackMultiplier(float value)
+    {
+        hardLightMultiplier += value;
+    }
+
+    public void MultiplierChangeLightAttackMultiplier(float multiplier)
+    {
+        hardLightMultiplier *= multiplier;
+    }
+
+    public void FlatChangeMediumAttackMultiplier(float value)
+    {
+        hardMediumMultiplier += value;
+    }
+
+    public void MultiplierChangeMediumAttackMultiplier(float multiplier)
+    {
+        hardMediumMultiplier *= multiplier;
+    }
+
+    public void FlatChangeStrongAttackMultiplier(float value)
+    {
+        hardStrongMultiplier += value;
+    }
+
+    public void MultiplierChangeStrongAttackMultiplier(float multiplier)
+    {
+        hardStrongMultiplier *= multiplier;
+    }
 }

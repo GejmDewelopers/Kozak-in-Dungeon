@@ -14,6 +14,8 @@ public class LevelGeneration : MonoBehaviour
 
     public GameObject[] normalRoomPrefabs;
     public GameObject[] baseRoomPrefabs;
+    public GameObject[] bossRoomPrefabs;
+    public GameObject[] shopRoomPrefabs;
     public GameObject[] doorPrefabs;
 
     [Space(10)]
@@ -33,10 +35,15 @@ public class LevelGeneration : MonoBehaviour
     public float yRoomSpawnAspectRatio = 8;
 
     //it's done so both are 64 (16*4 = 8*8)
+    private bool wasBossRoomCreated, wasItemRoomCreated, wasShopCreated;
+    private List<Vector2> takenSpecialRoomPositions = new List<Vector2>();
 
 
     void Start()
     {
+        LoadRoomPrefabs();
+
+
         if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
         { // make sure we dont try to make more rooms than can fit in our grid
             numberOfRooms = Mathf.RoundToInt((worldSize.x * 2) * (worldSize.y * 2));
@@ -45,17 +52,26 @@ public class LevelGeneration : MonoBehaviour
         gridSizeY = Mathf.RoundToInt(worldSize.y);
         SetDoorPrefabs();//adding door prefabs to static in Door class
         CreateRooms(); //lays out the actual map
+        SetNumberOfNeighboursOfFullMap(); //Finds number of neighbours to rooms when the map is laid out
+        SetSpecialRooms(); //TODO: this (better and more special rooms)
         SetRoomDoors(); //assigns the doors where rooms would connect
         DrawMap(); //instantiates objects to make up a map
-        
-
         playerTransform.position = new Vector2(0, -10);
     }
+
+    private void LoadRoomPrefabs()
+    {
+        baseRoomPrefabs = Resources.LoadAll<GameObject>("Rooms/Base Rooms");
+        normalRoomPrefabs = Resources.LoadAll<GameObject>("Rooms/Normal Rooms");
+        bossRoomPrefabs = Resources.LoadAll<GameObject>("Rooms/Boss Rooms");
+        shopRoomPrefabs = Resources.LoadAll<GameObject>("Rooms/Shop Rooms");
+    }
+
     void CreateRooms()
     {
         //setup
         rooms = new Room[gridSizeX * 2, gridSizeY * 2];
-        rooms[gridSizeX, gridSizeY] = new Room(Vector2.zero, 1);
+        rooms[gridSizeX, gridSizeY] = new Room(Vector2.zero, RoomType.BaseRoom);
         takenPositions.Insert(0, Vector2.zero);
         Vector2 checkPos = Vector2.zero;
         //magic numbers
@@ -80,7 +96,7 @@ public class LevelGeneration : MonoBehaviour
                     print("error: could not create with fewer neighbors than : " + NumberOfNeighbors(checkPos, takenPositions));
             }
             //finalize position
-            rooms[(int)checkPos.x + gridSizeX, (int)checkPos.y + gridSizeY] = new Room(checkPos, 0);
+            rooms[(int)checkPos.x + gridSizeX, (int)checkPos.y + gridSizeY] = new Room(checkPos, RoomType.NormalRoom);
             takenPositions.Insert(0, checkPos);
         }
     }
@@ -191,6 +207,70 @@ public class LevelGeneration : MonoBehaviour
         }
         return ret;
     }
+
+    private void SetNumberOfNeighboursOfFullMap()
+    {
+
+        foreach (Room room in rooms)
+        {
+            if (room == null) continue;
+            int i = Mathf.RoundToInt(room.gridPos.x + worldSize.x);
+            int j = Mathf.RoundToInt(room.gridPos.y + worldSize.y);
+            if (i > 0)
+            {
+                if (rooms[i - 1, j] != null)
+                {
+                    room.numberOfNeighbours++;
+                }
+            }
+
+            if (i < worldSize.x * 2 - 1)
+            {
+                if (rooms[i + 1, j] != null)
+                {
+                    room.numberOfNeighbours++;
+                }
+            }
+
+            if (j > 0)
+            {
+                if (rooms[i, j - 1] != null)
+                {
+                    room.numberOfNeighbours++;
+                }
+            }
+
+            if (j < worldSize.y * 2 - 1) {
+                if (rooms[i, j + 1] != null)
+                {
+                    room.numberOfNeighbours++;
+                }
+            }
+        }
+    }
+
+    void SetSpecialRooms()
+    {
+        foreach (Room room in rooms)
+        {
+            if (room == null) continue;
+            if (room.numberOfNeighbours == 1 && !takenSpecialRoomPositions.Contains(room.gridPos) && !wasBossRoomCreated)
+            {
+                wasBossRoomCreated = true;
+                takenSpecialRoomPositions.Add(room.gridPos);
+                room.type = RoomType.BossRoom;
+            }
+
+            if (room.numberOfNeighbours == 1 && !takenSpecialRoomPositions.Contains(room.gridPos) && !wasShopCreated)
+            {
+                wasShopCreated = true;
+                takenSpecialRoomPositions.Add(room.gridPos);
+                room.type = RoomType.Shop;
+            }
+
+        }
+    }
+
     void DrawMap()
     {
         foreach (Room room in rooms)
@@ -229,15 +309,16 @@ public class LevelGeneration : MonoBehaviour
         roomDrawPos.y *= yRoomSpawnAspectRatio;
 
         GameObject recentlyDoneRoom;
-        if (room.type == 0) recentlyDoneRoom = Instantiate(normalRoomPrefabs[index], roomDrawPos, Quaternion.identity);
-
         //TODO: CHANGE IF MORE BASE ROOMS WILL HAPPEN or more types of rooms
+        if (room.type == RoomType.NormalRoom) recentlyDoneRoom = Instantiate(normalRoomPrefabs[index], roomDrawPos, Quaternion.identity);
+        else if (room.type == RoomType.BossRoom) recentlyDoneRoom = Instantiate(bossRoomPrefabs[0], roomDrawPos, Quaternion.identity);
+        else if (room.type == RoomType.Shop) recentlyDoneRoom = Instantiate(shopRoomPrefabs[0], roomDrawPos, Quaternion.identity);
         else recentlyDoneRoom = Instantiate(baseRoomPrefabs[0], roomDrawPos, Quaternion.identity);
         recentlyDoneRoom.gameObject.transform.parent = roomsRoot;
 
         recentlyDoneRoom.AddComponent<RoomInstance>();
-        recentlyDoneRoom.GetComponent<RoomInstance>().Setup(room.gridPos, roomDrawPos, room.type, room.doorTop, room.doorRight, room.doorBot, room.doorLeft, mapSprite);
-        recentlyDoneRoom.GetComponent<RoomInstance>().InstantiateMapSprite(mapRoot);
+        recentlyDoneRoom.GetComponent<RoomInstance>().Setup(room.gridPos, roomDrawPos, room.type, room.doorTop, room.doorRight, room.doorBot, room.doorLeft,room.numberOfNeighbours, mapSprite);
+        recentlyDoneRoom.GetComponent<RoomInstance>().InstantiateMapSprite(mapRoot); //In Door.cs there is if the map has to be revealed gardually.
     }
 
     void SetRoomDoors()
