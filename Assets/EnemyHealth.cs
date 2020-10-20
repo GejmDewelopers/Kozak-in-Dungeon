@@ -22,7 +22,7 @@ public class EnemyHealth : MonoBehaviour
         if (bullet) ReceiveDamage(bullet.damage);
     }
 
-    void ReceiveDamage(float damage)
+    public void ReceiveDamage(float damage)
     {
         healthPoints -= damage;
         StartCoroutine(ChangeColorOnDamage());

@@ -5626,6 +5626,10 @@ MonoBehaviour:
   hardStrongMultiplier: 2
   playerArm: {fileID: 1291415059886450765}
   bulletForce: 20
+  attackRange: 1
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!114 &777433075
 MonoBehaviour:
   m_ObjectHideFlags: 0

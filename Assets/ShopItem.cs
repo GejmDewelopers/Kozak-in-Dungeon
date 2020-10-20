@@ -38,18 +38,21 @@ public class ShopItem : MonoBehaviour
     TextMeshProUGUI priceDisplay;
     void Start()
     {
+        //Finding player, that could be any unique script on player
         player = FindObjectOfType<PlayerHealth>().transform;
 
-
+        //Load all scripts on player where stats will be modified
         playerShooting = player.GetComponent<PlayerShooting>();
         playerHealth = player.GetComponent<PlayerHealth>();
         playerMovement = player.GetComponent<PlayerMovement>();
         playerUtilities = player.GetComponent<PlayerUtilities>();
 
+        //Create trigger collider to pick up
         itemCollider = gameObject.AddComponent<CircleCollider2D>();
         itemCollider.radius = 0.3f;
         itemCollider.isTrigger = true;
 
+        //price above item
         priceDisplay = GetComponentInChildren<TextMeshProUGUI>();
         priceDisplay.text = price.ToString() + '$';
         
@@ -59,6 +62,7 @@ public class ShopItem : MonoBehaviour
     {
         if(collision.tag == "Player" && playerUtilities.GetMoneyAmount() >= price)
         {
+            //modify stats on player
             playerUtilities.subtractMoney(price);
 
             playerShooting.FlatChangeDamage(damageIncrease);

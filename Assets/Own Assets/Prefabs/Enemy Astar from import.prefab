@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5057002082370521541}
   - component: {fileID: 5057002082370521540}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Evil Clone
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5057002082371855577}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 5057002082841592840}
   - component: {fileID: 5057002082841592841}
   - component: {fileID: 5057002082841592842}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy Astar from import
   m_TagString: Untagged
   m_Icon: {fileID: 0}

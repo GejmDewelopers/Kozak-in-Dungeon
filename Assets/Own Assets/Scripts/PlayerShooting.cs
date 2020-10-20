@@ -39,6 +39,8 @@ public class PlayerShooting : MonoBehaviour
     PlayerMovement playerMovement;
 
     float timer;
+    //for changing trail colors in animation
+    int attackType = 0;
 
     private void Start()
     {
@@ -97,57 +99,78 @@ public class PlayerShooting : MonoBehaviour
         rb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse); // TODO: maybe firepoint.up later
         Destroy(bullet.gameObject, 5f);
     }
+    //TODO: chceck if new hitting works fine and then remove
+    //IEnumerator SwingArm(float damage, int type)
+    //{
+    //    playerArm.SetActive(true);
 
-    IEnumerator SwingArm(float damage, int type)
+    //    memoryDamage = playerArmBulletScript.damage;
+    //    playerArmBulletScript.damage = damage;
+
+    //    SetTrailColors(type);
+
+    //    //changing arm position
+    //    for (float i = 1f; i > 0.1; i -= 0.1f)
+    //    {
+    //        playerArm.transform.rotation = Quaternion.Euler(0, 0, 60 * i + this.gameObject.transform.rotation.eulerAngles.z);
+    //        yield return new WaitForSeconds(0.005f);
+    //    }
+    //    for (float i = 0.1f; i < 1; i+=0.1f)
+    //    {
+    //        playerArm.transform.rotation = Quaternion.Euler(0, 0, -60 * i + this.gameObject.transform.rotation.eulerAngles.z);
+    //        yield return new WaitForSeconds(0.005f);
+    //    }
+
+    //    playerArmBulletScript.damage = memoryDamage;
+
+    //    playerArm.SetActive(false);
+    //}
+
+    public float attackRange = 1f;
+    public LayerMask enemyLayers;
+
+    IEnumerator SwingArm(float damage)
     {
-        playerArm.SetActive(true);
+        animator.Play("MeleeAttack");
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(firePoint.position, attackRange, enemyLayers);
 
-        memoryDamage = playerArmBulletScript.damage;
-        playerArmBulletScript.damage = damage;
-
-        SetTrailColors(type);
-
-        //changing arm position
-        for (float i = 1f; i > 0.1; i -= 0.1f)
+        foreach (Collider2D enemy in hitEnemies)
         {
-            playerArm.transform.rotation = Quaternion.Euler(0, 0, 60 * i + this.gameObject.transform.rotation.eulerAngles.z);
-            yield return new WaitForSeconds(0.005f);
+            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+            enemyHealth.ReceiveDamage(damage);
         }
-        for (float i = 0.1f; i < 1; i+=0.1f)
-        {
-            playerArm.transform.rotation = Quaternion.Euler(0, 0, -60 * i + this.gameObject.transform.rotation.eulerAngles.z);
-            yield return new WaitForSeconds(0.005f);
-        }
-
-        playerArmBulletScript.damage = memoryDamage;
-
-        playerArm.SetActive(false);
+        yield return null;
     }
 
-    private void SetTrailColors(int type)
+    private void OnDrawGizmosSelected()
     {
-        if (type == 0)
+        Gizmos.DrawWireSphere(firePoint.position,attackRange);
+    }
+
+    public void SetTrailColors()
+    {
+        if (attackType == 0)
         {
             foreach (TrailRenderer trail in swingTrails)
             {
                 trail.colorGradient = defaultTrailGradient;
             }
         }
-        if (type == 1)
+        if (attackType == 1)
         {
             foreach(TrailRenderer trail in swingTrails)
             {
                 trail.colorGradient = lightTrailGradient;
             }
         }
-        if (type == 2)
+        if (attackType == 2)
         {
             foreach (TrailRenderer trail in swingTrails)
             {
                 trail.colorGradient = mediumTrailGradient;
             }
         }
-        if (type == 3)
+        if (attackType == 3)
         {
             foreach (TrailRenderer trail in swingTrails)
             {
@@ -158,20 +181,27 @@ public class PlayerShooting : MonoBehaviour
 
     void ProcessHit(bool isHard, float value)
     {
-        if (!isHard) StartCoroutine(SwingArm(hitDamage,0));
+        if (!isHard)
+        {
+            attackType = 0;
+            StartCoroutine(SwingArm(hitDamage));
+        }
         else
         {
             if (value < 0.4f)
             {
-                StartCoroutine(SwingArm(hitDamage * hardLightMultiplier, 1));
+                attackType = 1;
+                StartCoroutine(SwingArm(hitDamage * hardLightMultiplier));
             }
             if (value >= 0.4f && value <= 0.9f)
             {
-                StartCoroutine(SwingArm(hitDamage * hardMediumMultiplier, 2));
+                attackType = 2;
+                StartCoroutine(SwingArm(hitDamage * hardMediumMultiplier));
             }
             if (value >= 0.9f)
             {
-                StartCoroutine(SwingArm(hitDamage * hardStrongMultiplier, 3));
+                attackType = 3;
+                StartCoroutine(SwingArm(hitDamage * hardStrongMultiplier));
             }
         }
     }

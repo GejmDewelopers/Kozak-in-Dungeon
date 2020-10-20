@@ -68,12 +68,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void ManageClickedButtonsNotForMoving()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.Tab))
         {
             if (isMinimapEnlarged)
             {
                 minimapUIImage.localScale = new Vector3(3, 3, 1);
-
             }
             else
             {
