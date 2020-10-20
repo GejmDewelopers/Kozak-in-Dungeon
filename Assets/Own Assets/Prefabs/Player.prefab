@@ -5315,6 +5315,7 @@ GameObject:
   - component: {fileID: 2791012408127015918}
   - component: {fileID: 1227407135}
   - component: {fileID: 777433075}
+  - component: {fileID: 1952613468}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -5475,7 +5476,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8b2ae2453a5f24fbbf7d13c76286fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  defaultSpeed: 6
+  chargingAttackSpeed: 3
+  speed: 2
   rb: {fileID: 1227407133}
   cam: {fileID: 0}
   minimapUIImage: {fileID: 0}
@@ -5641,6 +5644,19 @@ MonoBehaviour:
   spriteRenderer: {fileID: 2791012408127015916}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   damageColor: {r: 1, g: 1, b: 1, a: 0.1}
+--- !u!114 &1952613468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2791012408127015906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4497194219cc48b46a876f008fdd0fcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  money: 0
 --- !u!1 &3422071285989405282
 GameObject:
   m_ObjectHideFlags: 0

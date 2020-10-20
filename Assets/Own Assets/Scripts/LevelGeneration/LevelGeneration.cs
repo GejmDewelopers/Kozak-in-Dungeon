@@ -16,6 +16,7 @@ public class LevelGeneration : MonoBehaviour
     public GameObject[] baseRoomPrefabs;
     public GameObject[] bossRoomPrefabs;
     public GameObject[] shopRoomPrefabs;
+    public GameObject[] itemRoomPrefabs;
     public GameObject[] doorPrefabs;
 
     [Space(10)]
@@ -65,6 +66,7 @@ public class LevelGeneration : MonoBehaviour
         normalRoomPrefabs = Resources.LoadAll<GameObject>("Rooms/Normal Rooms");
         bossRoomPrefabs = Resources.LoadAll<GameObject>("Rooms/Boss Rooms");
         shopRoomPrefabs = Resources.LoadAll<GameObject>("Rooms/Shop Rooms");
+        itemRoomPrefabs = Resources.LoadAll<GameObject>("Rooms/Item Rooms");
     }
 
     void CreateRooms()
@@ -268,6 +270,13 @@ public class LevelGeneration : MonoBehaviour
                 room.type = RoomType.Shop;
             }
 
+            if (room.numberOfNeighbours == 1 && !takenSpecialRoomPositions.Contains(room.gridPos) && !wasItemRoomCreated)
+            {
+                wasItemRoomCreated = true;
+                takenSpecialRoomPositions.Add(room.gridPos);
+                room.type = RoomType.ItemRoom;
+            }
+
         }
     }
 
@@ -313,6 +322,7 @@ public class LevelGeneration : MonoBehaviour
         if (room.type == RoomType.NormalRoom) recentlyDoneRoom = Instantiate(normalRoomPrefabs[index], roomDrawPos, Quaternion.identity);
         else if (room.type == RoomType.BossRoom) recentlyDoneRoom = Instantiate(bossRoomPrefabs[0], roomDrawPos, Quaternion.identity);
         else if (room.type == RoomType.Shop) recentlyDoneRoom = Instantiate(shopRoomPrefabs[0], roomDrawPos, Quaternion.identity);
+        else if (room.type == RoomType.ItemRoom) recentlyDoneRoom = Instantiate(itemRoomPrefabs[0], roomDrawPos, Quaternion.identity);
         else recentlyDoneRoom = Instantiate(baseRoomPrefabs[0], roomDrawPos, Quaternion.identity);
         recentlyDoneRoom.gameObject.transform.parent = roomsRoot;
 

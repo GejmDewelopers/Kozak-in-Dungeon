@@ -104,8 +104,9 @@ public class MapSpriteSelector : MonoBehaviour
     {
         if (type == RoomType.NormalRoom) return new Color(1f, 1f, 1f, 1f);
         if (type == RoomType.BaseRoom) return new Color(0f, 1f, 0f, 1f);
-        if (type == RoomType.BossRoom) return new Color(0f, 0.5f, 0.5f, 1f);
-        if (type == RoomType.Shop) return new Color(1f, 0f, 0.5f, 1f);
+        if (type == RoomType.BossRoom) return new Color(0f, 0f, 0f, 1f);
+        if (type == RoomType.Shop) return new Color(1f, 1f, 0f, 1f);
+        if (type == RoomType.ItemRoom) return new Color(0f, 0f, 1f, 1f);
         if (type == RoomType.Active) return new Color(1f, 0f, 0f, 1f); //for active room
         return new Color(0f, 0f, 0f, 1f);
     }
