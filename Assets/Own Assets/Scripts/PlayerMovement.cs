@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     //this script will manage the clicked things other than movement, like M for monimap enlargement etc.
-
+    [SerializeField] AudioSource audioSource;
     public float defaultSpeed = 6f;
     public float chargingAttackSpeed = 3f;
     public float speed = 6f;
@@ -30,11 +30,20 @@ public class PlayerMovement : MonoBehaviour
     float chargeCooldown = 0.5f;
     float temporary = 0f;
     float timeSinceLastEvade = 0f;
+    [Space(10)]
+
+    AudioSource walkingSound;
+    [SerializeField] AudioClip walkingSoundClip;
+    [SerializeField] ParticleSystem evadeParticles;
+    [SerializeField] AudioClip evadeSound;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         evadeTimer = 100f;
+        walkingSound = gameObject.AddComponent<AudioSource>();
+        walkingSound.clip = walkingSoundClip;
+        walkingSound.volume = 0.25f;
     }
 
     // Update is called once per frame
@@ -44,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         if (PlayerHealth.state == PlayerHealthState.Alive && !PauseMenu.GameIsPaused)
         {
             TakeInputs();
-            RunAnimHandler();
+            RunAnimAndSoundHandler();
             ManageClickedButtonsNotForMoving();
         }
         else
@@ -90,10 +99,19 @@ public class PlayerMovement : MonoBehaviour
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    private void RunAnimHandler()
+    private void RunAnimAndSoundHandler()
     {
-        if (movement.magnitude >= Mathf.Epsilon) animator.SetBool("isRunning", true);
-        else animator.SetBool("isRunning", false);
+        if (movement.magnitude >= Mathf.Epsilon)
+        {
+            animator.SetBool("isRunning", true);
+            if(!walkingSound.isPlaying) walkingSound.Play();
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+            walkingSound.Pause();
+        }
+
     }
 
     private void FixedUpdate()
@@ -105,13 +123,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if (PlayerHealth.state == PlayerHealthState.Alive && !PauseMenu.GameIsPaused)
         {
+            //Checking and managing evade
             if (wasEvadeClicked && timeSinceLastEvade >= timeBetweenEvades && evadeTimer >= timeToChargeOneEvadeStack)
             {
                 evadeTimer -= timeToChargeOneEvadeStack;
                 temporary = 0;
                 timeSinceLastEvade = 0;
                 Vector2 whereToTPPlayer = DetermineTeleportDirection();
+
+                var particles = Instantiate(evadeParticles, transform.position, Quaternion.identity);
+                particles.Play();
+                audioSource.PlayOneShot(evadeSound);
+
                 gameObject.transform.position = rb.position + whereToTPPlayer * evadeMultiplicator;
+                particles = Instantiate(evadeParticles, transform.position, Quaternion.identity);
+                particles.Play();
             }
             rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
             Vector2 lookDir = mousePos - rb.position;

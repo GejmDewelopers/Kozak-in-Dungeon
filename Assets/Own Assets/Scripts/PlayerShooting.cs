@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerShooting : MonoBehaviour
 {
     //HARD HIT IS IN THE CHARGE BAR SCRIPT
+    [SerializeField] AudioSource audioSource;
     [SerializeField] Transform firePoint;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Animator animator;
@@ -41,6 +42,12 @@ public class PlayerShooting : MonoBehaviour
     float timer;
     //for changing trail colors in animation
     int attackType = 0;
+
+    [Space(4)]
+    [SerializeField] AudioClip lightAttackSound;
+    [SerializeField] AudioClip HardLightAttackSound;
+    [SerializeField] AudioClip HardMediumAttackSound;
+    [SerializeField] AudioClip HardHeavyAttackSound;
 
     private void Start()
     {
@@ -181,9 +188,11 @@ public class PlayerShooting : MonoBehaviour
 
     void ProcessHit(bool isHard, float value)
     {
+        //isHard - is the attack 'hard', there are 3 hard states - hard light, hard medium and hard strong (has to hold mouse for a certain anmount of time in order for attack to be hard)
         if (!isHard)
         {
             attackType = 0;
+            audioSource.PlayOneShot(lightAttackSound);
             StartCoroutine(SwingArm(hitDamage));
         }
         else
@@ -191,16 +200,19 @@ public class PlayerShooting : MonoBehaviour
             if (value < 0.4f)
             {
                 attackType = 1;
+                audioSource.PlayOneShot(HardLightAttackSound);
                 StartCoroutine(SwingArm(hitDamage * hardLightMultiplier));
             }
             if (value >= 0.4f && value <= 0.9f)
             {
                 attackType = 2;
+                audioSource.PlayOneShot(HardMediumAttackSound);
                 StartCoroutine(SwingArm(hitDamage * hardMediumMultiplier));
             }
             if (value >= 0.9f)
             {
                 attackType = 3;
+                audioSource.PlayOneShot(HardHeavyAttackSound);
                 StartCoroutine(SwingArm(hitDamage * hardStrongMultiplier));
             }
         }

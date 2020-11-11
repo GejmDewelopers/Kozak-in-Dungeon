@@ -39,12 +39,9 @@ public class LevelGeneration : MonoBehaviour
     private bool wasBossRoomCreated, wasItemRoomCreated, wasShopCreated;
     private List<Vector2> takenSpecialRoomPositions = new List<Vector2>();
 
-
     void Start()
     {
         LoadRoomPrefabs();
-
-
         if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
         { // make sure we dont try to make more rooms than can fit in our grid
             numberOfRooms = Mathf.RoundToInt((worldSize.x * 2) * (worldSize.y * 2));

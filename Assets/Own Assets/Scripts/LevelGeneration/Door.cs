@@ -37,6 +37,8 @@ public class Door : MonoBehaviour
 
     GameObject player;
 
+    AudioSource doorPassSound;
+
     private void OnDestroy()
     {
         //has to be done otherwise when the game is restarted via main menu, old doors are still there and there are missing refferences and one can't go through doors
@@ -45,6 +47,8 @@ public class Door : MonoBehaviour
 
     private void Start()
     {
+        doorPassSound = GetComponent<AudioSource>();
+
         defaultDoorColor = new Color(1f, 1f, 1f, 1f);
         lockedDoorColor = new Color(1f, 0.2f, 0.2f, 1f);
 
@@ -122,6 +126,7 @@ public class Door : MonoBehaviour
     {
         this.parentRoom.isActive = false;
         PlayerHealth.state = PlayerHealthState.BlockedControlls;
+        //doorPassSound.Play();
 
         yield return new WaitForSeconds(timeToBlockPlayerAction);
 
