@@ -5310,7 +5310,7 @@ GameObject:
   - component: {fileID: 4480076696194147669}
   - component: {fileID: 1810457089706126108}
   m_Layer: 8
-  m_Name: Particle System
+  m_Name: EvadeParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5413,7 +5413,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.03
+      scalar: 0.01
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5582,7 +5582,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.58
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5961,7 +5961,7 @@ ParticleSystem:
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
-    radiusThickness: 0.97
+    radiusThickness: 0
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
@@ -6033,7 +6033,7 @@ ParticleSystem:
     m_UseMeshMaterialIndex: 0
     m_UseMeshColors: 1
     alignToDirection: 0
-    m_Texture: {fileID: 2800000, guid: 741d7187968324981907bd5a897bb005, type: 3}
+    m_Texture: {fileID: 0}
     m_TextureClipChannel: 3
     m_TextureClipThreshold: 0
     m_TextureUVChannel: 0
@@ -6044,7 +6044,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 2.85
+      value: 0.23
       mode: 0
       spread: 0
       speed:
@@ -6163,7 +6163,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 150
+      scalar: 500
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -9061,7 +9061,7 @@ ParticleSystem:
       emitProbability: 1
   LightsModule:
     enabled: 0
-    ratio: 0
+    ratio: 1
     light: {fileID: 0}
     randomDistribution: 1
     color: 1
@@ -10242,7 +10242,9 @@ MonoBehaviour:
   evadeMultiplicator: 4
   timeToChargeOneEvadeStack: 2
   timeBetweenEvades: 1
-  evadeSound: {fileID: 0}
+  walkingSoundClip: {fileID: 8300000, guid: b928e807fa364b04cabbab614ea51aa0, type: 3}
+  evadeParticles: {fileID: 4480076696194147669}
+  evadeSound: {fileID: 8300000, guid: db9303f69e64d1344bbdff6649cf3819, type: 3}
 --- !u!114 &1227407135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10255,8 +10257,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b09c679eff6c4b4296ce5944636edac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 2534932404648932826}
   firePoint: {fileID: 6843637708121005218}
   bulletPrefab: {fileID: 8972903807120374612, guid: d502fa89f4c383246b6c54c0487b8957,
+    type: 3}
+  shockwaveBulletPrefab: {fileID: 7365392324094750174, guid: b39d73e21aad8754ba3766166ce1da63,
     type: 3}
   animator: {fileID: 2791012408127015917}
   chargeBar: {fileID: 771988304259438851}
@@ -10384,6 +10389,14 @@ MonoBehaviour:
   hardStrongMultiplier: 2
   playerArm: {fileID: 1291415059886450765}
   bulletForce: 20
+  shockvaweForce: 10
+  lightAttackSound: {fileID: 8300000, guid: 936232a7ff0de874699146700f64061a, type: 3}
+  HardLightAttackSound: {fileID: 8300000, guid: 82a2b22cf59e1974c94098f22703c3d2,
+    type: 3}
+  HardMediumAttackSound: {fileID: 8300000, guid: 1cc9e88fbd9ff3c40b01c90f5808cd92,
+    type: 3}
+  HardHeavyAttackSound: {fileID: 8300000, guid: dfb7fceec7d29ef43a723a81e975a064,
+    type: 3}
   attackRange: 1
   enemyLayers:
     serializedVersion: 2
@@ -10525,7 +10538,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8596759176218607068}
   - component: {fileID: 1455952035303592239}
-  - component: {fileID: 1982825431541063560}
   - component: {fileID: 1463734637}
   m_Layer: 10
   m_Name: Arm
@@ -10598,32 +10610,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!61 &1982825431541063560
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3422071285989405282}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.46750045, y: -0.032887936}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 16, y: 8}
-    newSize: {x: 16, y: 8}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 14.873369, y: 5.943802}
-  m_EdgeRadius: 0
 --- !u!114 &1463734637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10638,6 +10624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitParticlePrefab: {fileID: 1630220226}
   damage: 20
+  destroyingSound: {fileID: 0}
 --- !u!1 &3482811378165438016
 GameObject:
   m_ObjectHideFlags: 0

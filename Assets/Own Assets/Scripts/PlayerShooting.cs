@@ -9,6 +9,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] Transform firePoint;
     [SerializeField] GameObject bulletPrefab;
+    [SerializeField] GameObject shockwaveBulletPrefab;
     [SerializeField] Animator animator;
     [SerializeField] ChargeBar chargeBar;
 
@@ -35,6 +36,7 @@ public class PlayerShooting : MonoBehaviour
     float memoryDamage;
 
     public float bulletForce = 20f;
+    public float shockvaweForce = 10f;
     PlayerHealth playerHealthScript;
 
     PlayerMovement playerMovement;
@@ -65,13 +67,17 @@ public class PlayerShooting : MonoBehaviour
         if (!PauseMenu.GameIsPaused)
         {
             //TODO: MAYBE REMOVE ONE OF THE OFFENCE MECHANISM LATER
-            if (Input.GetButtonDown("Fire1") && PlayerHealth.state == PlayerHealthState.Alive)
-            {
-                Shoot();
-                animator.SetTrigger("Shoot");
-            }
-
+            //ProcessShooting(); //Shooting is obsolete and shoudn't be in the final product
             ProcessMeleeAttackAndChargeBar();
+        }
+    }
+
+    private void ProcessShooting()
+    {
+        if (Input.GetButtonDown("Fire1") && PlayerHealth.state == PlayerHealthState.Alive)
+        {
+            Shoot();
+            animator.SetTrigger("Shoot");
         }
     }
 
@@ -106,6 +112,7 @@ public class PlayerShooting : MonoBehaviour
         rb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse); // TODO: maybe firepoint.up later
         Destroy(bullet.gameObject, 5f);
     }
+
     //TODO: chceck if new hitting works fine and then remove
     //IEnumerator SwingArm(float damage, int type)
     //{
@@ -136,15 +143,29 @@ public class PlayerShooting : MonoBehaviour
     public float attackRange = 1f;
     public LayerMask enemyLayers;
 
-    IEnumerator SwingArm(float damage)
+    IEnumerator SwingArm(float damage, bool isHard)
     {
         animator.Play("MeleeAttack");
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(firePoint.position, attackRange, enemyLayers);
 
-        foreach (Collider2D enemy in hitEnemies)
+        if (isHard)
         {
-            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-            enemyHealth.ReceiveDamage(damage);
+            //tu wstawić latające dalej pociski
+            GameObject bullet = Instantiate(shockwaveBulletPrefab, firePoint.position, firePoint.rotation);
+            SetShockwaveColor(bullet);
+            Bullet bulletScript = bullet.GetComponent<Bullet>();
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            bulletScript.damage = damage;
+            rb.AddForce(firePoint.right * shockvaweForce, ForceMode2D.Impulse); // TODO: maybe firepoint.up later
+            Destroy(bullet.gameObject, 5f);
+        }
+        else
+        {
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(firePoint.position, attackRange, enemyLayers);
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+                enemyHealth.ReceiveDamage(damage);
+            }
         }
         yield return null;
     }
@@ -152,6 +173,23 @@ public class PlayerShooting : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(firePoint.position,attackRange);
+    }
+
+    private void SetShockwaveColor(GameObject bullet)
+    {
+        SpriteRenderer spRenderer = bullet.GetComponent<SpriteRenderer>();
+        if (attackType == 1)
+        {
+            spRenderer.color = new Color(1f, 1f, 1f);
+        }
+        if (attackType == 2)
+        {
+            spRenderer.color = new Color(0f, 1f, 1f);
+        }
+        if (attackType == 3)
+        {
+            spRenderer.color = new Color(1f, 0f, 1f);
+        }
     }
 
     public void SetTrailColors()
@@ -193,7 +231,7 @@ public class PlayerShooting : MonoBehaviour
         {
             attackType = 0;
             audioSource.PlayOneShot(lightAttackSound);
-            StartCoroutine(SwingArm(hitDamage));
+            StartCoroutine(SwingArm(hitDamage, isHard));
         }
         else
         {
@@ -201,19 +239,19 @@ public class PlayerShooting : MonoBehaviour
             {
                 attackType = 1;
                 audioSource.PlayOneShot(HardLightAttackSound);
-                StartCoroutine(SwingArm(hitDamage * hardLightMultiplier));
+                StartCoroutine(SwingArm(hitDamage * hardLightMultiplier, isHard));
             }
             if (value >= 0.4f && value <= 0.9f)
             {
                 attackType = 2;
                 audioSource.PlayOneShot(HardMediumAttackSound);
-                StartCoroutine(SwingArm(hitDamage * hardMediumMultiplier));
+                StartCoroutine(SwingArm(hitDamage * hardMediumMultiplier, isHard));
             }
             if (value >= 0.9f)
             {
                 attackType = 3;
                 audioSource.PlayOneShot(HardHeavyAttackSound);
-                StartCoroutine(SwingArm(hitDamage * hardStrongMultiplier));
+                StartCoroutine(SwingArm(hitDamage * hardStrongMultiplier, isHard));
             }
         }
     }
