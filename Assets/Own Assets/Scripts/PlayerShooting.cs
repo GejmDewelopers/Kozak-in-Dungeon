@@ -31,14 +31,15 @@ public class PlayerShooting : MonoBehaviour
     [Space(4)]
 
     public GameObject playerArm;
-    Bullet playerArmBulletScript;
-    float hitDamage;
-    float memoryDamage;
-    public float shockwaveDuration = 2.5f;
+    public static float hitDamage=20f;
+
 
     public float bulletForce = 20f;
+
+    [Space(4)]
     public float shockvaweForce = 10f;
-    PlayerHealth playerHealthScript;
+    public float shockwaveDuration = 2.5f;
+    [SerializeField] float movementShockwaveMultiplier = 1f;
 
     PlayerMovement playerMovement;
 
@@ -54,9 +55,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Start()
     {
-        playerHealthScript = GetComponent<PlayerHealth>();
-        playerArmBulletScript = playerArm.GetComponentInChildren<Bullet>();
-        hitDamage = playerArmBulletScript.damage;
+        //hitDamage = playerArmBulletScript.damage;
 
         playerArm.SetActive(false);
 
@@ -156,7 +155,9 @@ public class PlayerShooting : MonoBehaviour
             Bullet bulletScript = bullet.GetComponent<Bullet>();
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             bulletScript.damage = damage;
-            rb.AddForce(firePoint.right * shockvaweForce, ForceMode2D.Impulse); // TODO: maybe firepoint.up later
+            Vector3 forceRotation = firePoint.right * shockvaweForce + new Vector3(playerMovement.movement.x, playerMovement.movement.y, 0) * movementShockwaveMultiplier; // TODO: maybe firepoint.up later
+            rb.AddForce(forceRotation, ForceMode2D.Impulse);
+            bullet.transform.Rotate(forceRotation);
             Destroy(bullet.gameObject, shockwaveDuration);
         }
         else
@@ -165,7 +166,7 @@ public class PlayerShooting : MonoBehaviour
             foreach (Collider2D enemy in hitEnemies)
             {
                 EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
-                enemyHealth.ReceiveDamage(damage);
+                if (enemyHealth != null) enemyHealth.ReceiveDamage(damage);
             }
         }
         yield return null;

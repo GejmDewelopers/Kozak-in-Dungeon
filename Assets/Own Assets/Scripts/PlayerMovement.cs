@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     Animator animator;
 
-    Vector2 movement;
+    [HideInInspector] public Vector2 movement;
     Vector2 mousePos;
 
     bool wasEvadeClicked;
@@ -133,11 +133,13 @@ public class PlayerMovement : MonoBehaviour
 
                 var particles = Instantiate(evadeParticles, transform.position, Quaternion.identity);
                 particles.Play();
+                Destroy(particles.gameObject, 1f);
                 audioSource.PlayOneShot(evadeSound);
 
                 gameObject.transform.position = rb.position + whereToTPPlayer * evadeMultiplicator;
                 particles = Instantiate(evadeParticles, transform.position, Quaternion.identity);
                 particles.Play();
+                Destroy(particles.gameObject, 1f);
             }
             rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
             Vector2 lookDir = mousePos - rb.position;
