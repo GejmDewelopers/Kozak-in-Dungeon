@@ -7207,6 +7207,10 @@ PrefabInstance:
       propertyPath: healthDisplay
       value: 
       objectReference: {fileID: 1103975977}
+    - target: {fileID: 1227407135, guid: ca8fb28dfa942aa448301b08d8695c76, type: 3}
+      propertyPath: shockwaveDuration
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 2791012408127015906, guid: ca8fb28dfa942aa448301b08d8695c76,
         type: 3}
       propertyPath: m_Name

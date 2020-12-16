@@ -94,6 +94,17 @@ public class RoomInstance : MonoBehaviour
         door.direction = direction;
         door.roomPos = roomPos;
         door.doorPos = doorPos;
+        ChooseDoorRotation(door);
+    }
+
+    void ChooseDoorRotation(Door door)
+    {
+        SpriteRenderer doorSpriteRenderer = door.gameObject.GetComponent<SpriteRenderer>();
+
+        if (door.direction == 0) return;
+        if (door.direction == 1) door.gameObject.transform.eulerAngles += new Vector3(0f, 0f, -90f);
+        if (door.direction == 2) door.gameObject.transform.eulerAngles += new Vector3(0f, 0f, -180f);
+        if (door.direction == 3) door.gameObject.transform.eulerAngles += new Vector3(0f, 0f, 90f);
     }
 
     public void SetRoomAndEnemiesInRoomActive()

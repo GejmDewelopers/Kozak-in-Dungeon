@@ -34,6 +34,7 @@ public class PlayerShooting : MonoBehaviour
     Bullet playerArmBulletScript;
     float hitDamage;
     float memoryDamage;
+    public float shockwaveDuration = 2.5f;
 
     public float bulletForce = 20f;
     public float shockvaweForce = 10f;
@@ -156,7 +157,7 @@ public class PlayerShooting : MonoBehaviour
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             bulletScript.damage = damage;
             rb.AddForce(firePoint.right * shockvaweForce, ForceMode2D.Impulse); // TODO: maybe firepoint.up later
-            Destroy(bullet.gameObject, 5f);
+            Destroy(bullet.gameObject, shockwaveDuration);
         }
         else
         {
@@ -188,7 +189,7 @@ public class PlayerShooting : MonoBehaviour
         }
         if (attackType == 3)
         {
-            spRenderer.color = new Color(1f, 0f, 1f);
+            spRenderer.color = new Color(0.2f, 0.2f, 0.2f);
         }
     }
 

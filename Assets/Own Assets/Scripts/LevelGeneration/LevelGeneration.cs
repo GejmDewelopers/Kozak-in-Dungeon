@@ -396,4 +396,5 @@ public class LevelGeneration : MonoBehaviour
             Door.doorPrefabs.Add(door);
         }
     }
+
 }

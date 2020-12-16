@@ -15,6 +15,7 @@ public class Door : MonoBehaviour
 
     public static List<Door> allDoors = new List<Door>();
     public static List<GameObject> doorPrefabs = new List<GameObject>();
+    public static List<GameObject> doorSprites = new List<GameObject>();
     static float timeToBlockPlayerAction = 0.8f;
     static float timeToBlockDoors = 1.5f;
 
