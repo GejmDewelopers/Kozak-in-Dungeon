@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyTurret1 : EnemyStationary
 {
+    [SerializeField] float timeBetweenShots = 1f;
     private void Update()
     {
         if (enemyState == EnemyState.Active && wasActivated == false) StartCoroutine(FireBullets());
@@ -19,7 +20,7 @@ public class EnemyTurret1 : EnemyStationary
             InstantiateBulletAndAddForce(shootingDirection);
             if (direction < 7) direction++;
             else direction = 0;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(timeBetweenShots);
         }
     }
 
@@ -71,7 +72,6 @@ public class EnemyTurret1 : EnemyStationary
     public override void OnDeath()
     {
         //throw new System.NotImplementedException();
-        print("He ded");
     }
 
 }
