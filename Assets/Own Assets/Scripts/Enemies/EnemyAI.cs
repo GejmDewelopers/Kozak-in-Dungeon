@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
@@ -43,6 +44,12 @@ public class EnemyAI : EnemyMovingPathfinding
 
     public override void OnDeath()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
+    }
+
+    public override IEnumerator FireBullets()
+    {
+        yield return new WaitForSeconds(0.001f);
+       // throw new System.NotImplementedException();
     }
 }

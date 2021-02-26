@@ -11,13 +11,12 @@ public class EnemyTurret4 : EnemyStationary
     Vector2 dirVector3 = new Vector2(-1, 0).normalized;
 
 
-
     private void Update()
     {
         if (enemyState == EnemyState.Active && wasActivated == false) StartCoroutine(FireBullets());
     }
 
-    public IEnumerator FireBullets()
+    public override IEnumerator FireBullets()
     {
         wasActivated = true;
         while (true)

@@ -255,6 +255,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc76aa4ed8ba524b95b4d9c5b71eba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  enemyState: 0
+  wasActivated: 0
+  firePoint: {fileID: 7534600525471016947}
+  bulletPrefab: {fileID: 4506025892861065866, guid: 71f671823d1136643983cb941c8b134b,
+    type: 3}
+  bulletSpeed: 5
+  deathParticles: {fileID: 1320402554041353472, guid: 417451a531eed954c8347b08327de8b7,
+    type: 3}
+  animator: {fileID: 0}
+  timeBetweenShots: 1
 --- !u!1 &8418084475642879754
 GameObject:
   m_ObjectHideFlags: 0

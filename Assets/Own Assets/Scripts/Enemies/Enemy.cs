@@ -17,4 +17,5 @@ public abstract class Enemy : MonoBehaviour
     public Animator animator;
 
     public abstract void OnDeath();
+    public abstract IEnumerator FireBullets();
 }

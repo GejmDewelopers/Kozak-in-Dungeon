@@ -21,7 +21,7 @@ public class EnemyTurret3 : EnemyStationary
         if (enemyState == EnemyState.Active && wasActivated == false) StartCoroutine(FireBullets());
     }
 
-    public IEnumerator FireBullets()
+    public override IEnumerator FireBullets()
     {
         wasActivated = true;
         while (true)

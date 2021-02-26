@@ -157,6 +157,7 @@ MonoBehaviour:
   deathParticles: {fileID: 1320402554041353472, guid: 417451a531eed954c8347b08327de8b7,
     type: 3}
   animator: {fileID: 505548139}
+  timeBetweenShots: 1
 --- !u!114 &1127026062
 MonoBehaviour:
   m_ObjectHideFlags: 0

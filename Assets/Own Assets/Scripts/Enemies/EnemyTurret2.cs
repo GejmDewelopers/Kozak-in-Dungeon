@@ -10,10 +10,10 @@ public class EnemyTurret2 : EnemyStationary
         if (enemyState == EnemyState.Active && wasActivated == false) StartCoroutine(FireBullets());
     }
 
-    public IEnumerator FireBullets()
+    public override IEnumerator FireBullets()
     {
         wasActivated = true;
-        int direction = 0;
+        int direction = Random.Range(0, 4);
         while (true)
         {
             Vector2 shootingDirection = DetermineBulletDirection(direction);
